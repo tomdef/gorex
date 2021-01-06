@@ -1,0 +1,25 @@
+{
+	"folder": ".\\example",
+	"filter": "*.txt",
+	"scopes": [
+		{
+			"name": "example-find-comments-in-scope",
+			"startQuery": "^\\W*BEGIN$",
+			"finishQuery": "^\\W*END$",
+			"searchQuery": [
+				"^\\s*COMMAND\\=.*$"
+			],
+			"searchQueryMode": 1
+		},
+		{
+			"name": "example-find-command-in-scope",
+			"startQuery": "^\\W*BEGIN$",
+			"finishQuery": "^\\W*END$",
+			"searchQuery": [
+				"^\\s*COMMAND\\=AAA$",
+				"^\\s*COMMAND\\=BBB$"
+			],
+			"searchQueryMode": 0
+		}
+	]
+}
