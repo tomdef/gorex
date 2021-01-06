@@ -6,10 +6,10 @@
 
 * Generate example input file:
 ```
->gorex.exe gen
+.\gorex.exe gen
 ```
 
 * Scan file(s) and generate report:
 ```
->.\gorex.exe scan --input .\example.json --outputhtml .\example.html
+.\gorex.exe scan --input .\example.json --outputhtml .\example.html
 ```
