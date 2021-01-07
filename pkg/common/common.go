@@ -5,9 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
-	"sync"
 	"text/template"
 	"time"
 )
@@ -176,7 +174,11 @@ const (
 			<tbody>
 			<tr>
 				<td>Scan file(s)</td>
-				<td><b>{{len .Summary}}</b></td>
+				<td><b>{{.ScanFiles}}</b> </td>
+			</tr>
+			<tr>
+				<td>Found in file(s)</td>
+				<td><b>{{len .Summary}}</b> </td>
 			</tr>
 			{{range .Summary}}
 			<tr>
@@ -316,7 +318,7 @@ type ScanSummary struct {
 	Filter       string
 	CreationTime time.Time
 	Summary      []FileScopeSummary
-	Mux          sync.Mutex
+	ScanFiles    int
 }
 
 // ScopeSummaryWithConfig provides...
@@ -403,7 +405,6 @@ func (s ScanSummary) LogToFile(p string) {
 	file, _ := json.MarshalIndent(s, "", " ")
 
 	if err := ioutil.WriteFile(p, file, 0644); err == nil {
-		log.Printf("Data report saved into file [%v]", p)
 	}
 }
 
@@ -427,6 +428,5 @@ func (s ScanSummary) LogToHTML(p string) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("Html report saved into file [%v]", p)
 	return nil
 }
