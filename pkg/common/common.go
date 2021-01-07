@@ -151,7 +151,7 @@ const (
 </style>
 <body>
 	<div class="title" id="title">
-	    <div class="poweredby">powered by gorex</div>
+	    <div class="poweredby">powered by gorex (https://github.com/tomdef/gorex)</div>
 		<h2>Scan summary:</h2>		
 		<table class="title-tbl">
 		<caption>Parameters:</caption>

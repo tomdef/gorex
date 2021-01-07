@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Scan summary</title>
+<style>
+
+    .poweredby {
+		font-family: Verdana, Geneva, sans-serif;
+		font-size: 10px;
+		color: white;	
+	}
+
+    .title {
+		border: 2px solid #1C6EA4;
+		background: #80DCF5;
+		font-family: Verdana, Geneva, sans-serif;
+		font-size: 14px;
+		color: #000000;	
+		padding:5px;
+		margin-bottom:5px;
+	}
+
+	.title-tbl {
+		border:2px;
+		padding:5px;
+	}
+	.title-tbl caption {
+		text-align:left;
+	}
+
+	.title-tbl td {
+		border:1px;
+		padding:5px;
+		background:#FFFFFF;
+	}
+
+    .result {
+		border: 2px solid #1C6EA4;
+		background: #D0E4F5;
+		font-family: Verdana, Geneva, sans-serif;
+		font-size: 14px;
+		color: #000000;
+		padding:5px;
+	}
+
+    .summary {
+		border: 2px solid #1C6EA4;
+		background: #F5F5F5;
+		font-family: Verdana, Geneva, sans-serif;
+		font-size: 12px;
+		color: #000000;
+		padding:5px;
+		margin:15px;
+	}
+
+	.scope {
+		border-top: 2px dotted #AAAAAA;
+		margin-bottom:15px;
+		margin-top:15px;
+		margin-left:15px;
+	}
+
+	.summary-title {
+		background: #1C6EA4;
+		font-family: Verdana, Geneva, sans-serif;
+		font-size: 12px;
+		color: #FFFFFF;
+		padding:5px;
+		margin:5px;
+	}
+
+	.tbl {
+		width:100%;
+		border:2px #A3A3A3;
+		padding:5px;
+		table-layout: fixed;
+		width: 100%;  
+	}
+	.tbl caption {
+		text-align:left;
+	}
+	.tbl th {
+		text-align:left;
+		border:1px;
+		padding:5px;
+		background:#E0E0E0;
+	}
+	.tbl td {
+		text-align:left;
+		border:1px;
+		padding:5px;
+		background:#FFFFFF;
+	}
+
+	.collapsible1 {
+		background-color: #777;
+		color: white;
+		cursor: pointer;
+		padding: 18px;
+		width: 100%;
+		border: none;
+		text-align: left;
+		outline: none;
+		font-size: 15px;
+	  }
+
+	  .collapsible1 {
+		background-color: #FFF;
+		color: #000;
+		cursor: pointer;
+		padding: 0px;
+		width: 100%;
+		border: none;
+		text-align: left;
+		outline: none;
+		font-size: 15px;
+		background-image
+	  }
+	  
+	  .active, .collapsible:hover {
+		color: navy;
+		font-weight: bold;
+	  }
+	  
+	  .content {
+		display: none;
+		overflow: hidden;
+		background-color: #f0f0f0;
+		border: 1px dotted #AAAAAA;
+		margin:10px;
+		font-family: Courier New;
+	  }
+
+	}
+
+</style>
+<body>
+	<div class="title" id="title">
+	    <div class="poweredby">powered by gorex</div>
+		<h2>Scan summary:</h2>		
+		<table class="title-tbl">
+		<caption>Parameters:</caption>
+			<tbody>
+			<tr>
+				<td>Folder</td>
+				<td>D:\projects\Src\GoRex\example</td>
+			</tr>
+			<tr>
+				<td>Filter</td>
+				<td>*.txt</td>
+			</tr>
+			<tr>
+			<td>Creation time</td>
+			<td>2021-01-06 23:34:41.9691445 +0100 CET m=+0.038998601</td>
+		</tr>
+			</tbody>
+		</table>	
+
+		<table class="title-tbl">		
+		<caption>Summary:</caption>
+			<tbody>
+			<tr>
+				<td>Scan file(s)</td>
+				<td><b>1</b></td>
+			</tr>
+			
+			<tr>
+				<td>File name</td>
+				<td><b>D:\projects\Src\GoRex\example\F1.txt</b></td>
+				<td>Scope(s)</td>
+				<td><b>6</b></td>
+				<td>All matches in file</td>
+				<td><b>6</b></td>
+				<td><b><a href="#D:\projects\Src\GoRex\example\F1.txt">Go to file details</a></b></td>
+			</tr>
+			
+			</tbody>
+		</table>	
+
+	</div>	
+	<div class="result">
+	
+		<div class="summary">
+		<p class="summary-title" id="D:\projects\Src\GoRex\example\F1.txt">File name [<b><a class="summary-title" href="file:///D:\projects\Src\GoRex\example\F1.txt">D:\projects\Src\GoRex\example\F1.txt</a></b>][<a href="#title" class="summary-title">Go to top</a>]</p>
+		
+		<div class="scope">
+			<p>Scope name <b>example-find-any-command-in-scope</b></p>
+			
+			<p>Scope line range: [<b>4</b>..<b>10</b>]</p>
+			<p type="button" class="collapsible">Scope content [show/hide]:</button>
+			<div class="content">
+				 
+[00004|&gt;][BEGIN]<br/>
+				 
+[00005|-][    // comment]<br/>
+				 
+[00006|-][    // and another line ...]<br/>
+				 
+[00007|-][    COMMAND=AAA]<br/>
+				 
+[00008|-][    COMMAND=BBB]<br/>
+				 
+[00009|-][    // comment]<br/>
+				 
+[00010|&lt;][END]<br/>
+								
+			</div>	
+			
+			<table class="tbl">
+				<caption>Matches:</caption>
+				<thead>
+					<tr>
+						<th style="width:100px;">Line index</th>
+						<th>Text</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td style="width:100px;">7</td>
+						<td>    COMMAND=AAA</td>
+					</tr>
+					
+					<tr>
+						<td style="width:100px;">8</td>
+						<td>    COMMAND=BBB</td>
+					</tr>
+					
+				</tbody>
+			</table>			
+		</div>
+		
+		<div class="scope">
+			<p>Scope name <b>example-find-any-command-in-scope</b></p>
+			
+			<p>Scope line range: [<b>12</b>..<b>18</b>]</p>
+			<p type="button" class="collapsible">Scope content [show/hide]:</button>
+			<div class="content">
+				 
+[00012|&gt;][BEGIN]<br/>
+				 
+[00013|-][    COMMAND=AAA]<br/>
+				 
+[00014|-][    // comment]<br/>
+				 
+[00015|-][    // and another line ...]<br/>
+				 
+[00016|-][    COMMAND=BBB]<br/>
+				 
+[00017|-][    // comment]<br/>
+				 
+[00018|&lt;][END]<br/>
+								
+			</div>	
+			
+			<table class="tbl">
+				<caption>Matches:</caption>
+				<thead>
+					<tr>
+						<th style="width:100px;">Line index</th>
+						<th>Text</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td style="width:100px;">13</td>
+						<td>    COMMAND=AAA</td>
+					</tr>
+					
+					<tr>
+						<td style="width:100px;">16</td>
+						<td>    COMMAND=BBB</td>
+					</tr>
+					
+				</tbody>
+			</table>			
+		</div>
+		
+		<div class="scope">
+			<p>Scope name <b>example-find-any-command-in-scope</b></p>
+			
+			<p>Scope line range: [<b>20</b>..<b>23</b>]</p>
+			<p type="button" class="collapsible">Scope content [show/hide]:</button>
+			<div class="content">
+				 
+[00020|&gt;][BEGIN]<br/>
+				 
+[00021|-][    // there is nothing]<br/>
+				 
+[00022|-][    COMMAND=BBB]<br/>
+				 
+[00023|&lt;][END]<br/>
+								
+			</div>	
+			
+			<table class="tbl">
+				<caption>Matches:</caption>
+				<thead>
+					<tr>
+						<th style="width:100px;">Line index</th>
+						<th>Text</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td style="width:100px;">22</td>
+						<td>    COMMAND=BBB</td>
+					</tr>
+					
+				</tbody>
+			</table>			
+		</div>
+		
+		<div class="scope">
+			<p>Scope name <b>example-find-any-command-in-scope</b></p>
+			
+			<p>Scope line range: [<b>24</b>..<b>36</b>]</p>
+			<p type="button" class="collapsible">Scope content [show/hide]:</button>
+			<div class="content">
+				 
+[00024|&gt;][BEGIN]<br/>
+				 
+[00025|-][    COMMAND=AAA]<br/>
+				 
+[00026|-][    COMMAND=CCC]<br/>
+				 
+[00027|-][    //]<br/>
+				 
+[00028|-][    //]<br/>
+				 
+[00029|-][    //]<br/>
+				 
+[00030|-][    //]<br/>
+				 
+[00031|-][    COMMAND=DDD]<br/>
+				 
+[00032|-][    //]<br/>
+				 
+[00033|-][    //]<br/>
+				 
+[00034|-][    //]<br/>
+				 
+[00035|-][    COMMAND=EEE]<br/>
+				 
+[00036|&lt;][END]<br/>
+								
+			</div>	
+			
+			<table class="tbl">
+				<caption>Matches:</caption>
+				<thead>
+					<tr>
+						<th style="width:100px;">Line index</th>
+						<th>Text</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td style="width:100px;">25</td>
+						<td>    COMMAND=AAA</td>
+					</tr>
+					
+					<tr>
+						<td style="width:100px;">26</td>
+						<td>    COMMAND=CCC</td>
+					</tr>
+					
+					<tr>
+						<td style="width:100px;">31</td>
+						<td>    COMMAND=DDD</td>
+					</tr>
+					
+					<tr>
+						<td style="width:100px;">35</td>
+						<td>    COMMAND=EEE</td>
+					</tr>
+					
+				</tbody>
+			</table>			
+		</div>
+		
+		<div class="scope">
+			<p>Scope name <b>example-find-two-commands-in-scope</b></p>
+			
+			<p>Scope line range: [<b>4</b>..<b>10</b>]</p>
+			<p type="button" class="collapsible">Scope content [show/hide]:</button>
+			<div class="content">
+				 
+[00004|&gt;][BEGIN]<br/>
+				 
+[00005|-][    // comment]<br/>
+				 
+[00006|-][    // and another line ...]<br/>
+				 
+[00007|-][    COMMAND=AAA]<br/>
+				 
+[00008|-][    COMMAND=BBB]<br/>
+				 
+[00009|-][    // comment]<br/>
+				 
+[00010|&lt;][END]<br/>
+								
+			</div>	
+			
+			<table class="tbl">
+				<caption>Matches:</caption>
+				<thead>
+					<tr>
+						<th style="width:100px;">Line index</th>
+						<th>Text</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td style="width:100px;">7</td>
+						<td>    COMMAND=AAA</td>
+					</tr>
+					
+					<tr>
+						<td style="width:100px;">8</td>
+						<td>    COMMAND=BBB</td>
+					</tr>
+					
+				</tbody>
+			</table>			
+		</div>
+		
+		<div class="scope">
+			<p>Scope name <b>example-find-two-commands-in-scope</b></p>
+			
+			<p>Scope line range: [<b>12</b>..<b>18</b>]</p>
+			<p type="button" class="collapsible">Scope content [show/hide]:</button>
+			<div class="content">
+				 
+[00012|&gt;][BEGIN]<br/>
+				 
+[00013|-][    COMMAND=AAA]<br/>
+				 
+[00014|-][    // comment]<br/>
+				 
+[00015|-][    // and another line ...]<br/>
+				 
+[00016|-][    COMMAND=BBB]<br/>
+				 
+[00017|-][    // comment]<br/>
+				 
+[00018|&lt;][END]<br/>
+								
+			</div>	
+			
+			<table class="tbl">
+				<caption>Matches:</caption>
+				<thead>
+					<tr>
+						<th style="width:100px;">Line index</th>
+						<th>Text</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td style="width:100px;">13</td>
+						<td>    COMMAND=AAA</td>
+					</tr>
+					
+					<tr>
+						<td style="width:100px;">16</td>
+						<td>    COMMAND=BBB</td>
+					</tr>
+					
+				</tbody>
+			</table>			
+		</div>
+			
+		</div>
+		
+	</div>
+
+	<script>
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+	
+	for (i = 0; i < coll.length; i++) {
+	  coll[i].addEventListener("click", function() {
+		this.classList.toggle("active");
+		var content = this.nextElementSibling;
+		if (content.style.display === "block") {
+		  content.style.display = "none";
+		} else {
+		  content.style.display = "block";
+		}
+	  });
+	}
+	</script>
+</body>
+</html>	

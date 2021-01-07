@@ -3,7 +3,7 @@
 	"filter": "*.txt",
 	"scopes": [
 		{
-			"name": "example-find-comments-in-scope",
+			"name": "example-find-any-command-in-scope",
 			"startQuery": "^\\W*BEGIN$",
 			"finishQuery": "^\\W*END$",
 			"searchQuery": [
@@ -12,7 +12,7 @@
 			"searchQueryMode": 1
 		},
 		{
-			"name": "example-find-command-in-scope",
+			"name": "example-find-two-commands-in-scope",
 			"startQuery": "^\\W*BEGIN$",
 			"finishQuery": "^\\W*END$",
 			"searchQuery": [
