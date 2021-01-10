@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"html"
-	"log"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -267,7 +266,7 @@ func scan(input string, outputhtml string, outputjson string) error {
 				}
 
 				if err := scanner.Err(); err != nil {
-					log.Fatal(err)
+					logger.Fatal().Err(err)
 				}
 				// <--
 			}

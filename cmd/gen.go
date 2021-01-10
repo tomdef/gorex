@@ -3,7 +3,6 @@ package cmd
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"os"
 
 	common "gorex/pkg/common"
@@ -11,25 +10,27 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var genCmd = &cobra.Command{
-	Use:   "gen",
-	Short: "Generate example scan configuration",
+var (
+	genCmd = &cobra.Command{
+		Use:   "gen",
+		Short: "Generate example scan configuration",
 
-	RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 
-		o, err := cmd.Flags().GetString(fOutput)
+			o, err := cmd.Flags().GetString(fOutput)
 
-		if err != nil {
-			return err
-		}
+			if err != nil {
+				return err
+			}
 
-		if err := gen(o); err != nil {
-			log.Fatal(err)
-			return err
-		}
-		return nil
-	},
-}
+			if err := gen(o); err != nil {
+				logger.Fatal().Err(err)
+				return err
+			}
+			return nil
+		},
+	}
+)
 
 const (
 	fOutput = "output"
@@ -50,8 +51,8 @@ func writeScopeConfiguration(config common.ScanConfig, p string) error {
 }
 
 func gen(o string) error {
-	log.Printf("*** Start generate example file \n*** Output file path : %v", o)
-	defer log.Println("*** End ***")
+	logger.Info().Msgf("Start generate example file. Output file path : %v", o)
+	defer logger.Info().Msg("End")
 
 	var scopes []common.ScopeConfig
 
@@ -81,7 +82,7 @@ func gen(o string) error {
 	}
 
 	if err := cfg.IsValid(); err != nil {
-		log.Printf("Config is not valid: %v\n", err)
+		logger.Error().Msgf("Config is not valid: %v", err)
 		return err
 	}
 
