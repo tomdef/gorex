@@ -3,15 +3,6 @@
 	"filter": "*.txt",
 	"scopes": [
 		{
-			"name": "example-find-any-command-in-scope",
-			"startQuery": "^\\W*BEGIN$",
-			"finishQuery": "^\\W*END$",
-			"searchQuery": [
-				"^\\s*COMMAND\\=.*$"
-			],
-			"searchQueryMode": 1
-		},
-		{
 			"name": "example-find-two-commands-in-scope",
 			"startQuery": "^\\W*BEGIN$",
 			"finishQuery": "^\\W*END$",
@@ -19,7 +10,7 @@
 				"^\\s*COMMAND\\=AAA$",
 				"^\\s*COMMAND\\=BBB$"
 			],
-			"searchQueryMode": 0
+			"searchQueryMode": 2
 		}
 	]
 }

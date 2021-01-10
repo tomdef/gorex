@@ -102,14 +102,18 @@ func findMatchesInScope(scope common.ScopeSummaryWithConfig) (common.ScopeSummar
 
 	for i, line := range scope.ScopeSummary.Content {
 		for j, r := range rx {
+
 			isMatch := checkScopeMatch(line, r, true)
 
 			if isMatch == true {
-				matchesOfRxCounter[j] = matchesOfRxCounter[j] + 1
-				matchLines = append(matchLines, common.MatchLine{
-					Index: i + scope.ScopeSummary.Started,
-					Line:  line,
-				})
+
+				if (scope.ScopeConfig.SearchQueryMode == common.SearchQueryOperatorAny) || (scope.ScopeConfig.SearchQueryMode == common.SearchQueryOperatorAll) || (j == 0) || (matchesOfRxCounter[j-1] > 0) {
+					matchesOfRxCounter[j] = matchesOfRxCounter[j] + 1
+					matchLines = append(matchLines, common.MatchLine{
+						Index: i + scope.ScopeSummary.Started,
+						Line:  line,
+					})
+				}
 			}
 		}
 	}

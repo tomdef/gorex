@@ -266,6 +266,8 @@ const (
 	SearchQueryOperatorAll SearchQueryOperator = iota
 	//SearchQueryOperatorAny is OR operator for queries
 	SearchQueryOperatorAny
+	//SearchQueryOperatorStrictOrder ...
+	SearchQueryOperatorStrictOrder
 )
 
 // Scan config structs :

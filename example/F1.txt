@@ -5,15 +5,17 @@ BEGIN
     // comment
     // and another line ...
     COMMAND=AAA
+    //
     COMMAND=BBB
     // comment
 END
     // second section
 BEGIN
-    COMMAND=AAA
+    COMMAND=BBB
+    //   
     // comment
     // and another line ...
-    COMMAND=BBB
+    COMMAND=AAA
     // comment
 END
 //    
@@ -31,6 +33,7 @@ BEGIN
     COMMAND=DDD
     //
     //
+    COMMAND=BBB
     //
     COMMAND=EEE
 END
