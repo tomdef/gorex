@@ -10,7 +10,9 @@ import (
 )
 
 // CreateLogger deliver logger instance
-func CreateLogger(moduleName string) zerolog.Logger {
+func CreateLogger(moduleName string, trace bool) zerolog.Logger {
+
+	fmt.Printf("trace=%v\n", trace)
 
 	if moduleName != "" {
 		moduleName = fmt.Sprintf("› %v ›", moduleName)
@@ -46,6 +48,11 @@ func CreateLogger(moduleName string) zerolog.Logger {
 			return ""
 		}
 		return fmt.Sprintf("%v]", i)
+	}
+
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
+	if trace == true {
+		zerolog.SetGlobalLevel(zerolog.TraceLevel)
 	}
 
 	return zerolog.New(output).With().Timestamp().Caller().Logger()

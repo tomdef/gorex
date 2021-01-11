@@ -12,8 +12,9 @@ import (
 	"time"
 
 	common "gorex/pkg/common"
-	utils "gorex/pkg/utils"
+	"gorex/pkg/utils"
 
+	"github.com/rs/zerolog"
 	"github.com/spf13/cobra"
 )
 
@@ -26,6 +27,7 @@ const (
 	fInput            = "input"
 	fOutputHTML       = "outputhtml"
 	fOutputJSON       = "outputdata"
+	fTrace            = "trace"
 )
 
 var (
@@ -35,32 +37,25 @@ var (
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 
-			if err := scan(input, outpouHTML, outputJSON); err != nil {
+			if err := scan(input, outputHTML, outputJSON, trace); err != nil {
 				return err
 			}
 			return nil
 		},
 	}
-	wgFile    sync.WaitGroup
-	wgScope   sync.WaitGroup
-	wgSummary sync.WaitGroup
-	cFile     = make(channelFile)
-	cScope    = make(channelScope)
-	cSummary  = make(channelSummary)
 
-	mutex = &sync.Mutex{}
+	wgFile sync.WaitGroup
+	cFile  = make(channelFile)
+	mutex  = &sync.Mutex{}
 
 	// Commands represents path to command file
 	input      string
-	outpouHTML string
+	outputHTML string
 	outputJSON string
-
-	logger = utils.CreateLogger("scan")
+	trace      bool
 )
 
 type channelFile chan (string)
-type channelScope chan (common.ScopeSummaryWithConfig)
-type channelSummary chan (common.ScopeSummary)
 
 // -----------------------------------------------------------------------------
 // functions
@@ -78,7 +73,7 @@ func checkScopeMatch(line string, rx *regexp.Regexp, scopeIsOpen bool) bool {
 	return (scopeIsOpen == true) && (rx.MatchString(line) == true)
 }
 
-func findMatchesInScope(scope common.ScopeSummaryWithConfig) (common.ScopeSummary, error) {
+func findMatchesInScope(scope common.ScopeSummaryWithConfig, logger zerolog.Logger) (common.ScopeSummary, error) {
 
 	var rx []*regexp.Regexp
 	var result common.ScopeSummary = scope.ScopeSummary
@@ -92,7 +87,7 @@ func findMatchesInScope(scope common.ScopeSummaryWithConfig) (common.ScopeSummar
 		rx = append(rx, r)
 	}
 
-	logger.Info().Msgf("PROCESS SCOPE [name=%v] in [%v][%06d..%06d]",
+	logger.Trace().Msgf("Process scope [name=%v] in [%v][%06d..%06d]",
 		scope.ScopeSummary.Name, scope.ScopeSummary.FileName, scope.ScopeSummary.Started, scope.ScopeSummary.Finished)
 
 	requiredMatchCount := len(rx)
@@ -132,7 +127,10 @@ func findMatchesInScope(scope common.ScopeSummaryWithConfig) (common.ScopeSummar
 	return result, nil
 }
 
-func scan(input string, outputhtml string, outputjson string) error {
+func scan(input string, outputhtml string, outputjson string, trace bool) error {
+
+	logger := utils.CreateLogger("scan", trace)
+
 	logger.Info().Msgf("START SCAN. Command(s) file path : %v", input)
 
 	cfg, err := common.ReadScopeConfiguration(input)
@@ -168,7 +166,7 @@ func scan(input string, outputhtml string, outputjson string) error {
 	// -----------------------------------------------------------------------------
 	// read files and find scope(s)
 	// -----------------------------------------------------------------------------
-	go func(channel *channelFile, wgFile *sync.WaitGroup, wgScope *sync.WaitGroup, sc common.ScanConfig) {
+	go func(channel *channelFile, wgFile *sync.WaitGroup, sc common.ScanConfig) {
 		for {
 			path := <-(*channel)
 
@@ -212,7 +210,7 @@ func scan(input string, outputhtml string, outputjson string) error {
 						logger.Err(errors.New("One line search is not supported yet")).Send()
 					} else {
 						if checkIfBeginScope(line, rxStart, scopeIsOpen) == true {
-							logger.Info().Msgf("BEGIN SCOPE [%v] in line [%v]", s.Name, index)
+							logger.Trace().Msgf("Begin scope [%v] in line [%v]", s.Name, index)
 							scopeIsOpen = true
 							scopeSummary = common.ScopeSummary{
 								Name:     s.Name,
@@ -227,7 +225,7 @@ func scan(input string, outputhtml string, outputjson string) error {
 							scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
 						} else {
 							if checkIfEndScope(line, rxStop, scopeIsOpen) == true {
-								logger.Info().Msgf("END SCOPE [%v] in line [%v]", s.Name, index)
+								logger.Trace().Msgf("End scope [%v] in line [%v]", s.Name, index)
 								scopeIsOpen = false
 
 								scopeSummary.Finished = index
@@ -240,14 +238,14 @@ func scan(input string, outputhtml string, outputjson string) error {
 									ScopeConfig:  s,
 								}
 
-								s, err := findMatchesInScope(scopeSummaryWithConfig)
+								s, err := findMatchesInScope(scopeSummaryWithConfig, logger)
 								if err == nil {
 									mutex.Lock()
 
 									scopeSummary.Matches = append(scopeSummary.Matches, s.Matches...)
 
 									if len(scopeSummary.Matches) > 0 {
-										logger.Info().Msg("UPDATE FILE SUMMARY")
+										logger.Trace().Msg("Update summary")
 										fileScopeSummary.Scopes = append(fileScopeSummary.Scopes, scopeSummary)
 										fileScopeSummary.AllMatches = len(fileScopeSummary.Scopes)
 									}
@@ -274,7 +272,7 @@ func scan(input string, outputhtml string, outputjson string) error {
 			mutex.Lock()
 			scanSummary.ScanFiles++
 			if (fileScopeSummary.Scopes != nil) && (len(fileScopeSummary.Scopes) > 0) {
-				logger.Info().Msgf("ADD FILE [%v] MATCHES TO SUMMARY", fileScopeSummary.FileName)
+				logger.Trace().Msgf("ADD FILE [%v] MATCHES TO SUMMARY", fileScopeSummary.FileName)
 				scanSummary.Summary = append(scanSummary.Summary, fileScopeSummary)
 			}
 			mutex.Unlock()
@@ -282,7 +280,7 @@ func scan(input string, outputhtml string, outputjson string) error {
 			wgFile.Done()
 		}
 
-	}(&cFile, &wgFile, &wgScope, cfg)
+	}(&cFile, &wgFile, cfg)
 
 	// -----------------------------------------------------------------------------
 
@@ -338,8 +336,9 @@ func scan(input string, outputhtml string, outputjson string) error {
 func init() {
 
 	scanCmd.Flags().StringVarP(&input, "input", "i", ".", "Input file path (*.json) with scan commands.")
-	scanCmd.Flags().StringVarP(&outpouHTML, fOutputHTML, "o", "", "Output html report.")
+	scanCmd.Flags().StringVarP(&outputHTML, fOutputHTML, "o", "", "Output html report.")
 	scanCmd.Flags().StringVarP(&outputJSON, fOutputJSON, "d", "", "Output raw data in json format.")
+	scanCmd.Flags().BoolVarP(&trace, fTrace, "t", false, "Set trace mode.")
 
 	rootCmd.AddCommand(scanCmd)
 }
