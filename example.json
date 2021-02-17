@@ -1,7 +1,16 @@
 {
 	"folder": ".\\example",
-	"filter": "*.txt",
+	"filter": "F2.txt",
 	"scopes": [
+		{
+			"name": "example-find-any-command-in-scope",
+			"startQuery": "^\\W*BEGIN$",
+			"finishQuery": "^\\W*END$",
+			"searchQuery": [
+				"^\\s*COMMAND\\=.*$"
+			],
+			"searchQueryMode": 1
+		},
 		{
 			"name": "example-find-two-commands-in-scope",
 			"startQuery": "^\\W*BEGIN$",
@@ -10,7 +19,7 @@
 				"^\\s*COMMAND\\=AAA$",
 				"^\\s*COMMAND\\=BBB$"
 			],
-			"searchQueryMode": 2
+			"searchQueryMode": 0
 		}
 	]
 }

@@ -147,11 +147,11 @@
 			</tr>
 			<tr>
 				<td>Filter</td>
-				<td>*.txt</td>
+				<td>F2.txt</td>
 			</tr>
 			<tr>
 			<td>Creation time</td>
-			<td>2021-01-11 18:47:08.379973 +0100 CET m=+0.043029001</td>
+			<td>2021-02-17 19:26:38.5569114 +0100 CET m=+0.030006201</td>
 		</tr>
 			</tbody>
 		</table>	
@@ -170,12 +170,12 @@
 			
 			<tr>
 				<td>File name</td>
-				<td><b>D:\Projects\Src\GoRex\example\F1.txt</b></td>
+				<td><b>D:\Projects\Src\GoRex\example\F2.txt</b></td>
 				<td>Scope(s)</td>
 				<td><b>2</b></td>
 				<td>All matches in file</td>
 				<td><b>2</b></td>
-				<td><b><a href="#D:\Projects\Src\GoRex\example\F1.txt">Go to file details</a></b></td>
+				<td><b><a href="#D:\Projects\Src\GoRex\example\F2.txt">Go to file details</a></b></td>
 			</tr>
 			
 			</tbody>
@@ -185,30 +185,26 @@
 	<div class="result">
 	
 		<div class="summary">
-		<p class="summary-title" id="D:\Projects\Src\GoRex\example\F1.txt">File name [<b><a class="summary-title" href="file:///D:\Projects\Src\GoRex\example\F1.txt">D:\Projects\Src\GoRex\example\F1.txt</a></b>][<a href="#title" class="summary-title">Go to top</a>]</p>
+		<p class="summary-title" id="D:\Projects\Src\GoRex\example\F2.txt">File name [<b><a class="summary-title" href="file:///D:\Projects\Src\GoRex\example\F2.txt">D:\Projects\Src\GoRex\example\F2.txt</a></b>][<a href="#title" class="summary-title">Go to top</a>]</p>
 		
 		<div class="scope">
-			<p>Scope name <b>example-find-two-commands-in-scope</b></p>
+			<p>Scope name <b>example-find-any-command-in-scope</b></p>
 			
-			<p>Scope line range: [<b>4</b>..<b>11</b>]</p>
+			<p>Scope line range: [<b>2</b>..<b>7</b>]</p>
 			<p type="button" class="collapsible">Scope content [show/hide]:</button>
 			<div class="content">
 				 
-[00004|&gt;][BEGIN]<br/>
+[00002|&gt;][BEGIN]<br/>
 				 
-[00005|-][    // comment]<br/>
+[00003|-][    COMMAND=1]<br/>
 				 
-[00006|-][    // and another line ...]<br/>
+[00004|-][    COMMAND=2]<br/>
 				 
-[00007|-][    COMMAND=AAA]<br/>
+[00005|-][    // this is a comment inside scope]<br/>
 				 
-[00008|-][    //]<br/>
+[00006|-][    COMMAND=3]<br/>
 				 
-[00009|-][    COMMAND=BBB]<br/>
-				 
-[00010|-][    // comment]<br/>
-				 
-[00011|&lt;][END]<br/>
+[00007|&lt;][END]<br/>
 								
 			</div>	
 			
@@ -223,13 +219,18 @@
 				<tbody>
 					
 					<tr>
-						<td style="width:100px;">7</td>
-						<td>    COMMAND=AAA</td>
+						<td style="width:100px;">3</td>
+						<td>    COMMAND=1</td>
 					</tr>
 					
 					<tr>
-						<td style="width:100px;">9</td>
-						<td>    COMMAND=BBB</td>
+						<td style="width:100px;">4</td>
+						<td>    COMMAND=2</td>
+					</tr>
+					
+					<tr>
+						<td style="width:100px;">6</td>
+						<td>    COMMAND=3</td>
 					</tr>
 					
 				</tbody>
@@ -237,39 +238,17 @@
 		</div>
 		
 		<div class="scope">
-			<p>Scope name <b>example-find-two-commands-in-scope</b></p>
+			<p>Scope name <b>example-find-any-command-in-scope</b></p>
 			
-			<p>Scope line range: [<b>26</b>..<b>39</b>]</p>
+			<p>Scope line range: [<b>9</b>..<b>11</b>]</p>
 			<p type="button" class="collapsible">Scope content [show/hide]:</button>
 			<div class="content">
 				 
-[00026|&gt;][BEGIN]<br/>
+[00009|&gt;][BEGIN]<br/>
 				 
-[00027|-][    COMMAND=AAA]<br/>
+[00010|-][    COMMAND=X1]<br/>
 				 
-[00028|-][    COMMAND=CCC]<br/>
-				 
-[00029|-][    //]<br/>
-				 
-[00030|-][    //]<br/>
-				 
-[00031|-][    //]<br/>
-				 
-[00032|-][    //]<br/>
-				 
-[00033|-][    COMMAND=DDD]<br/>
-				 
-[00034|-][    //]<br/>
-				 
-[00035|-][    //]<br/>
-				 
-[00036|-][    COMMAND=BBB]<br/>
-				 
-[00037|-][    //]<br/>
-				 
-[00038|-][    COMMAND=EEE]<br/>
-				 
-[00039|&lt;][END]<br/>
+[00011|-][    COMMAND=X2]<br/>
 								
 			</div>	
 			
@@ -284,13 +263,13 @@
 				<tbody>
 					
 					<tr>
-						<td style="width:100px;">27</td>
-						<td>    COMMAND=AAA</td>
+						<td style="width:100px;">10</td>
+						<td>    COMMAND=X1</td>
 					</tr>
 					
 					<tr>
-						<td style="width:100px;">36</td>
-						<td>    COMMAND=BBB</td>
+						<td style="width:100px;">11</td>
+						<td>    COMMAND=X2</td>
 					</tr>
 					
 				</tbody>

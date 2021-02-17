@@ -274,44 +274,44 @@ const (
 
 // ScopeConfig provides configuration of scan
 type ScopeConfig struct {
-	Name            string              `json:"name"`
-	StartQuery      string              `json:"startQuery"`
-	FinishQuery     string              `json:"finishQuery"`
-	SearchQuery     []string            `json:"searchQuery"`
-	SearchQueryMode SearchQueryOperator `json:"searchQueryMode"`
+	Name            string              `json:"name" xml:"name,attr"`
+	StartQuery      string              `json:"startQuery" xml:"startQuery"`
+	FinishQuery     string              `json:"finishQuery" xml:"finishQuery"`
+	SearchQuery     []string            `json:"searchQuery" xml:"searchQuery"`
+	SearchQueryMode SearchQueryOperator `json:"searchQueryMode" xml:"searchQueryMode"`
 }
 
 // ScanConfig provides scan configuration
 type ScanConfig struct {
-	Folder string        `json:"folder"`
-	Filter string        `json:"filter"`
-	Scopes []ScopeConfig `json:"scopes"`
+	Folder string        `json:"folder" xml:"folder,attr"`
+	Filter string        `json:"filter" xml:"filder,attr"`
+	Scopes []ScopeConfig `json:"scopes" xml:"scopes"`
 }
 
 // Scan summary structs :
 
 // FileScopeSummary provides...
 type FileScopeSummary struct {
-	FileName   string         `json:"fileName"`
-	Scopes     []ScopeSummary `json:"scopes"`
+	FileName   string         `json:"fileName" xml:"fileName,attr"`
+	Scopes     []ScopeSummary `json:"scopes" xml:"scopes"`
 	AllMatches int
 }
 
 // MatchLine provides...
 type MatchLine struct {
-	Line  string `json:"line"`
-	Index int    `json:"index"`
+	Line  string `json:"line" xml:"line,attr"`
+	Index int    `json:"index" xml:"index,attr"`
 }
 
 // ScopeSummary provides...
 type ScopeSummary struct {
-	Name          string   `json:"name"`
-	FileName      string   `json:"fileName"`
-	Started       int      `json:"started"`
-	Finished      int      `json:"finished"`
-	Content       []string `json:"content"`
+	Name          string   `json:"name" xml:"name,attr"`
+	FileName      string   `json:"fileName" xml:"fileName,attr"`
+	Started       int      `json:"started" xml:"started,attr"`
+	Finished      int      `json:"finished" xml:"finished,attr"`
+	Content       []string `json:"content" xml:"content"`
 	ContentAsHTML []string
-	Matches       []MatchLine `json:"matches"`
+	Matches       []MatchLine `json:"matches" xml:"matches"`
 }
 
 // ScanSummary provides...
@@ -356,11 +356,6 @@ func ReadScopeConfiguration(configPath string) (ScanConfig, error) {
 // -----------------------------------------------------------------------------
 // extensions
 // -----------------------------------------------------------------------------
-
-// IsOneLineSearch check if scope config contains only search query
-func (cfg ScopeConfig) IsOneLineSearch() bool {
-	return (cfg.FinishQuery == "") && (cfg.StartQuery == "") && (len(cfg.SearchQuery) == 1) && (cfg.SearchQuery[0] != "")
-}
 
 // IsValid check if ScanConfig contains every required fields
 func (cfg ScanConfig) IsValid() error {

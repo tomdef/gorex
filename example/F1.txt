@@ -2,38 +2,28 @@
 // this is a comment 2
 // this is a comment 3
 BEGIN
-    // comment
-    // and another line ...
-    COMMAND=AAA
-    //
-    COMMAND=BBB
-    // comment
+    COMMAND=1
+    COMMAND=2
+    // this is a comment inside scope
+    COMMAND=3
 END
-    // second section
+// this is a comment 4
 BEGIN
-    COMMAND=BBB
-    //   
-    // comment
-    // and another line ...
-    COMMAND=AAA
-    // comment
-END
-//    
-BEGIN
-    // there is nothing
-    COMMAND=BBB
+    // this is a comment inside scope
+    COMMAND ignore
+    // this is a comment inside scope
+    COMMAND=A
+    COMMAND=B
+    // this is a comment inside scope
+    COMMAND=C
 END
 BEGIN
-    COMMAND=AAA
-    COMMAND=CCC
-    //
-    //
-    //
-    //
-    COMMAND=DDD
-    //
-    //
-    COMMAND=BBB
-    //
-    COMMAND=EEE
+    // this is a comment inside scope
+    COMMAND=A1
+    COMMAND=A2
+    COMMAND=A3
 END
+    COMMAND=OutOfScope
+BEGIN
+    COMMAND=X1
+    COMMAND=X2

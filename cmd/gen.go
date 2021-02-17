@@ -2,8 +2,11 @@ package cmd
 
 import (
 	"encoding/json"
+	"encoding/xml"
+	"errors"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	common "gorex/pkg/common"
 	"gorex/pkg/utils"
@@ -45,9 +48,24 @@ const (
 
 func writeScopeConfiguration(config common.ScanConfig, p string) error {
 
-	b, err := json.MarshalIndent(config, "", "\t")
-	if err != nil {
-		return err
+	isXML := strings.HasSuffix(p, ".xml")
+	isJSON := strings.HasSuffix(p, ".json")
+
+	if (isXML == false) && (isJSON == false) {
+		return errors.New("Invalid file extension. Should be json or xml")
+	}
+
+	var b []byte
+	var e error
+
+	if isJSON == true {
+		b, e = json.MarshalIndent(config, "", "\t")
+	} else {
+		b, e = xml.MarshalIndent(config, "", "\t")
+	}
+
+	if e != nil {
+		return e
 	}
 
 	return ioutil.WriteFile(p, b, os.ModePerm)

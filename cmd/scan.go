@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"html"
 	"os"
@@ -198,69 +197,76 @@ func scan(input string, outputhtml string, outputjson string, trace bool) error 
 				defer file.Close()
 
 				scanner := bufio.NewScanner(file)
-				index := 1
+				index := 0
 				scopeIsOpen := false
 				var scopeSummary common.ScopeSummary
+				var scan bool = true
+				var line string
+				for scan {
+					scan = scanner.Scan()
 
-				for scanner.Scan() {
+					if scan == true {
+						line = scanner.Text()
+						index++
+					}
 
-					line := scanner.Text()
-
-					if s.IsOneLineSearch() == true {
-						logger.Err(errors.New("One line search is not supported yet")).Send()
+					if checkIfBeginScope(line, rxStart, scopeIsOpen) == true {
+						logger.Trace().Msgf("Begin scope [%v] in line [%v]", s.Name, index)
+						scopeIsOpen = true
+						scopeSummary = common.ScopeSummary{
+							Name:     s.Name,
+							FileName: path,
+							Started:  index,
+							Finished: 0,
+							Matches:  nil,
+							Content:  nil,
+						}
+						scopeSummary.Content = append(scopeSummary.Content, line)
+						tmp := fmt.Sprintf(formatContentHTML, index, startScopeMark, line)
+						scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
 					} else {
-						if checkIfBeginScope(line, rxStart, scopeIsOpen) == true {
-							logger.Trace().Msgf("Begin scope [%v] in line [%v]", s.Name, index)
-							scopeIsOpen = true
-							scopeSummary = common.ScopeSummary{
-								Name:     s.Name,
-								FileName: path,
-								Started:  index,
-								Finished: 0,
-								Matches:  nil,
-								Content:  nil,
-							}
-							scopeSummary.Content = append(scopeSummary.Content, line)
-							tmp := fmt.Sprintf(formatContentHTML, index, startScopeMark, line)
-							scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
-						} else {
-							if checkIfEndScope(line, rxStop, scopeIsOpen) == true {
-								logger.Trace().Msgf("End scope [%v] in line [%v]", s.Name, index)
-								scopeIsOpen = false
+						if (checkIfEndScope(line, rxStop, scopeIsOpen) == true) || ((scopeIsOpen == true) && (scan == false)) {
+							logger.Trace().Msgf("End scope [%v] in line [%v]", s.Name, index)
 
-								scopeSummary.Finished = index
+							scopeIsOpen = false
+							scopeSummary.Finished = index
+
+							if scan == false {
+								logger.Trace().Msg("End of file")
+							} else {
 								scopeSummary.Content = append(scopeSummary.Content, line)
 								tmp := fmt.Sprintf(formatContentHTML, index, finishScopeMark, line)
 								scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
+							}
 
-								scopeSummaryWithConfig := common.ScopeSummaryWithConfig{
-									ScopeSummary: scopeSummary,
-									ScopeConfig:  s,
+							scopeSummaryWithConfig := common.ScopeSummaryWithConfig{
+								ScopeSummary: scopeSummary,
+								ScopeConfig:  s,
+							}
+
+							s, err := findMatchesInScope(scopeSummaryWithConfig, logger)
+							if err == nil {
+								mutex.Lock()
+
+								scopeSummary.Matches = append(scopeSummary.Matches, s.Matches...)
+
+								if len(scopeSummary.Matches) > 0 {
+									logger.Trace().Msg("Update summary")
+									fileScopeSummary.Scopes = append(fileScopeSummary.Scopes, scopeSummary)
+									fileScopeSummary.AllMatches = len(fileScopeSummary.Scopes)
 								}
-
-								s, err := findMatchesInScope(scopeSummaryWithConfig, logger)
-								if err == nil {
-									mutex.Lock()
-
-									scopeSummary.Matches = append(scopeSummary.Matches, s.Matches...)
-
-									if len(scopeSummary.Matches) > 0 {
-										logger.Trace().Msg("Update summary")
-										fileScopeSummary.Scopes = append(fileScopeSummary.Scopes, scopeSummary)
-										fileScopeSummary.AllMatches = len(fileScopeSummary.Scopes)
-									}
-									mutex.Unlock()
-								}
-							} else {
-								if scopeIsOpen == true {
-									scopeSummary.Content = append(scopeSummary.Content, line)
-									tmp := fmt.Sprintf(formatContentHTML, index, notMatchedMark, line)
-									scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
-								}
+								mutex.Unlock()
+							}
+						} else {
+							if scopeIsOpen == true {
+								scopeSummary.Content = append(scopeSummary.Content, line)
+								tmp := fmt.Sprintf(formatContentHTML, index, notMatchedMark, line)
+								scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
 							}
 						}
 					}
-					index++
+
+					//index++
 				}
 
 				if err := scanner.Err(); err != nil {
