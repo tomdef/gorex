@@ -151,7 +151,7 @@
 			</tr>
 			<tr>
 			<td>Creation time</td>
-			<td>2021-02-24 19:34:52.0155843 +0100 CET m=+0.028000201</td>
+			<td>2021-02-24 19:34:03.1390476 +0100 CET m=+0.032000401</td>
 		</tr>
 			</tbody>
 		</table>	
@@ -172,9 +172,9 @@
 				<td>File name</td>
 				<td><b>D:\Projects\Src\GoRex\example\F1.txt</b></td>
 				<td>Scope(s)</td>
-				<td><b>5</b></td>
+				<td><b>4</b></td>
 				<td>All matches in file</td>
-				<td><b>5</b></td>
+				<td><b>4</b></td>
 				<td><b><a href="#D:\Projects\Src\GoRex\example\F1.txt">Go to file details</a></b></td>
 			</tr>
 			
@@ -346,7 +346,7 @@
 		<div class="scope">
 			<p>Scope name <b>example-find-any-command-in-scope</b></p>
 			
-			<p>Scope line range: [<b>27</b>..<b>31</b>]</p>
+			<p>Scope line range: [<b>27</b>..<b>29</b>]</p>
 			<p type="button" class="collapsible">Scope content [show/hide]:</button>
 			<div class="content">
 				 
@@ -355,10 +355,6 @@
 [00028|-][    COMMAND=X1]<br/>
 				 
 [00029|-][    COMMAND=X2]<br/>
-				 
-[00030|-][    COMMAND=X3]<br/>
-				 
-[00031|&lt;][BEGIN]<br/>
 								
 			</div>	
 			
@@ -380,57 +376,6 @@
 					<tr>
 						<td style="width:100px;">29</td>
 						<td>    COMMAND=X2</td>
-					</tr>
-					
-					<tr>
-						<td style="width:100px;">30</td>
-						<td>    COMMAND=X3</td>
-					</tr>
-					
-				</tbody>
-			</table>			
-		</div>
-		
-		<div class="scope">
-			<p>Scope name <b>example-find-any-command-in-scope</b></p>
-			
-			<p>Scope line range: [<b>31</b>..<b>34</b>]</p>
-			<p type="button" class="collapsible">Scope content [show/hide]:</button>
-			<div class="content">
-				 
-[00031|&gt;][BEGIN]<br/>
-				 
-[00032|-][    COMMAND=Y1]<br/>
-				 
-[00033|-][    COMMAND=Y2]<br/>
-				 
-[00034|-][    COMMAND=Y3]<br/>
-								
-			</div>	
-			
-			<table class="tbl">
-				<caption>Matches:</caption>
-				<thead>
-					<tr>
-						<th style="width:100px;">Line index</th>
-						<th>Text</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-					<tr>
-						<td style="width:100px;">32</td>
-						<td>    COMMAND=Y1</td>
-					</tr>
-					
-					<tr>
-						<td style="width:100px;">33</td>
-						<td>    COMMAND=Y2</td>
-					</tr>
-					
-					<tr>
-						<td style="width:100px;">34</td>
-						<td>    COMMAND=Y3</td>
 					</tr>
 					
 				</tbody>

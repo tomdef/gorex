@@ -49,15 +49,15 @@ const (
 
     .result {
 		border: 2px solid #1C6EA4;
-		background: #D0E4F5;
+		//background: #D0E4F5;
 		font-family: Verdana, Geneva, sans-serif;
 		font-size: 14px;
 		color: #000000;
-		padding:5px;
+		padding:2px;
 	}
 
     .summary {
-		border: 2px solid #1C6EA4;
+		border: 1px solid #1C6EA4;
 		background: #F5F5F5;
 		font-family: Verdana, Geneva, sans-serif;
 		font-size: 12px;
@@ -274,11 +274,12 @@ const (
 
 // ScopeConfig provides configuration of scan
 type ScopeConfig struct {
-	Name            string              `json:"name" xml:"name,attr"`
-	StartQuery      string              `json:"startQuery" xml:"startQuery"`
-	FinishQuery     string              `json:"finishQuery" xml:"finishQuery"`
-	SearchQuery     []string            `json:"searchQuery" xml:"searchQuery"`
-	SearchQueryMode SearchQueryOperator `json:"searchQueryMode" xml:"searchQueryMode"`
+	Name                 string              `json:"name" xml:"name,attr"`
+	StartQuery           string              `json:"startQuery" xml:"startQuery"`
+	FinishQuery          string              `json:"finishQuery" xml:"finishQuery"`
+	StartQueryCloseScope bool                `json:"startQueryCloseScope" xml:"startQueryCloseScope"`
+	SearchQuery          []string            `json:"searchQuery" xml:"searchQuery"`
+	SearchQueryMode      SearchQueryOperator `json:"searchQueryMode" xml:"searchQueryMode"`
 }
 
 // ScanConfig provides scan configuration
@@ -398,11 +399,10 @@ func (cfg ScanConfig) IsValid() error {
 }
 
 // LogToFile writes summary to json file
-func (s ScanSummary) LogToFile(p string) {
+func (s ScanSummary) LogToFile(p string) error {
 	file, _ := json.MarshalIndent(s, "", " ")
 
-	if err := ioutil.WriteFile(p, file, 0644); err == nil {
-	}
+	return ioutil.WriteFile(p, file, 0644)
 }
 
 // LogToHTML generate html log file

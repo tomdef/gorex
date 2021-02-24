@@ -9,3 +9,7 @@ END
 BEGIN
     COMMAND=X1
     COMMAND=X2
+BEGIN    
+    COMMAND=Y1
+BEGIN    
+    COMMAND=Y2    

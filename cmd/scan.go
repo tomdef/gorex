@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
 	"sync"
@@ -27,6 +28,7 @@ const (
 	fOutputHTML       = "outputhtml"
 	fOutputJSON       = "outputdata"
 	fTrace            = "trace"
+	fShow             = "show"
 )
 
 var (
@@ -52,6 +54,7 @@ var (
 	outputHTML string
 	outputJSON string
 	trace      bool
+	show       bool
 )
 
 type channelFile chan (string)
@@ -124,6 +127,58 @@ func findMatchesInScope(scope common.ScopeSummaryWithConfig, logger zerolog.Logg
 	}
 
 	return result, nil
+}
+
+func beginScope(logger *zerolog.Logger, fileName string, line string, index int, scopeName string, scopeIsOpen *bool, scopeSummary *common.ScopeSummary) {
+
+	logger.Trace().Msgf("Begin scope [%v] in line [%v]", scopeName, index)
+	*scopeIsOpen = true
+	*scopeSummary = common.ScopeSummary{
+		Name:     scopeName,
+		FileName: fileName,
+		Started:  index,
+		Finished: 0,
+		Matches:  nil,
+		Content:  nil,
+	}
+	scopeSummary.Content = append(scopeSummary.Content, line)
+	tmp := fmt.Sprintf(formatContentHTML, index, startScopeMark, line)
+	scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
+}
+
+func endScope(logger *zerolog.Logger, scan bool, line string, index int, scopeName string, scopeIsOpen *bool, scopeSummary *common.ScopeSummary, scopeConfig *common.ScopeConfig, fileScopeSummary *common.FileScopeSummary) {
+
+	logger.Trace().Msgf("End scope [%v] in line [%v]", scopeName, index)
+
+	*scopeIsOpen = false
+	(*scopeSummary).Finished = index
+
+	if scan == false {
+		logger.Trace().Msg("End of file")
+	} else {
+		scopeSummary.Content = append(scopeSummary.Content, line)
+		tmp := fmt.Sprintf(formatContentHTML, index, finishScopeMark, line)
+		scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
+	}
+
+	scopeSummaryWithConfig := common.ScopeSummaryWithConfig{
+		ScopeSummary: *scopeSummary,
+		ScopeConfig:  *scopeConfig,
+	}
+
+	s, err := findMatchesInScope(scopeSummaryWithConfig, *logger)
+	if err == nil {
+		mutex.Lock()
+
+		scopeSummary.Matches = append(scopeSummary.Matches, s.Matches...)
+
+		if len(scopeSummary.Matches) > 0 {
+			logger.Trace().Msg("Update summary")
+			fileScopeSummary.Scopes = append(fileScopeSummary.Scopes, *scopeSummary)
+			fileScopeSummary.AllMatches = len(fileScopeSummary.Scopes)
+		}
+		mutex.Unlock()
+	}
 }
 
 func scan(input string, outputhtml string, outputjson string, trace bool) error {
@@ -210,58 +265,27 @@ func scan(input string, outputhtml string, outputjson string, trace bool) error 
 						index++
 					}
 
-					if checkIfBeginScope(line, rxStart, scopeIsOpen) == true {
-						logger.Trace().Msgf("Begin scope [%v] in line [%v]", s.Name, index)
-						scopeIsOpen = true
-						scopeSummary = common.ScopeSummary{
-							Name:     s.Name,
-							FileName: path,
-							Started:  index,
-							Finished: 0,
-							Matches:  nil,
-							Content:  nil,
-						}
-						scopeSummary.Content = append(scopeSummary.Content, line)
-						tmp := fmt.Sprintf(formatContentHTML, index, startScopeMark, line)
-						scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
+					if checkIfBeginScope(line, rxStart, scopeIsOpen) {
+
+						beginScope(&logger, path, line, index, s.Name, &scopeIsOpen, &scopeSummary)
+
+					} else if (checkIfBeginScope(line, rxStart, false)) && (s.StartQueryCloseScope == true) && (scopeIsOpen == true) {
+						logger.Info().Msg("End scope because of StartQueryCloseScope flag.")
+						endScope(&logger, scan, line, index, s.Name, &scopeIsOpen, &scopeSummary, &s, &fileScopeSummary)
+						beginScope(&logger, path, line, index, s.Name, &scopeIsOpen, &scopeSummary)
+
 					} else {
 						if (checkIfEndScope(line, rxStop, scopeIsOpen) == true) || ((scopeIsOpen == true) && (scan == false)) {
-							logger.Trace().Msgf("End scope [%v] in line [%v]", s.Name, index)
 
-							scopeIsOpen = false
-							scopeSummary.Finished = index
+							endScope(&logger, scan, line, index, s.Name, &scopeIsOpen, &scopeSummary, &s, &fileScopeSummary)
 
-							if scan == false {
-								logger.Trace().Msg("End of file")
-							} else {
-								scopeSummary.Content = append(scopeSummary.Content, line)
-								tmp := fmt.Sprintf(formatContentHTML, index, finishScopeMark, line)
-								scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
-							}
-
-							scopeSummaryWithConfig := common.ScopeSummaryWithConfig{
-								ScopeSummary: scopeSummary,
-								ScopeConfig:  s,
-							}
-
-							s, err := findMatchesInScope(scopeSummaryWithConfig, logger)
-							if err == nil {
-								mutex.Lock()
-
-								scopeSummary.Matches = append(scopeSummary.Matches, s.Matches...)
-
-								if len(scopeSummary.Matches) > 0 {
-									logger.Trace().Msg("Update summary")
-									fileScopeSummary.Scopes = append(fileScopeSummary.Scopes, scopeSummary)
-									fileScopeSummary.AllMatches = len(fileScopeSummary.Scopes)
-								}
-								mutex.Unlock()
-							}
 						} else {
 							if scopeIsOpen == true {
+
 								scopeSummary.Content = append(scopeSummary.Content, line)
 								tmp := fmt.Sprintf(formatContentHTML, index, notMatchedMark, line)
 								scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
+
 							}
 						}
 					}
@@ -323,12 +347,35 @@ func scan(input string, outputhtml string, outputjson string, trace bool) error 
 	if (outputhtml != "") || (outputjson != "") {
 		logger.Info().Msg("SAVE...")
 		if outputhtml != "" {
+
+			info, err := os.Stat(outputhtml)
+			if !os.IsNotExist(err) {
+				newName := outputhtml + ".backup"
+				logger.Info().Msgf("\tRename previous file [%v] to [%v]", info.Name(), newName)
+				os.Rename(outputhtml, newName)
+			}
+
 			logger.Info().Msgf("\tSave to [%v]", outputhtml)
-			scanSummary.LogToHTML(outputhtml)
+			e := scanSummary.LogToHTML(outputhtml)
+			if e != nil {
+				logger.Err(err)
+			}
 		}
 		if outputjson != "" {
 			logger.Info().Msgf("\tSave to [%v]", outputjson)
-			scanSummary.LogToFile(outputjson)
+			e := scanSummary.LogToFile(outputjson)
+			if e != nil {
+				logger.Err(err)
+			}
+		}
+
+		if (outputjson != "") || (outputhtml != "") && (show == true) {
+
+			logger.Info().Msg("SHOW result...")
+			err = exec.Command("rundll32", "url.dll,FileProtocolHandler", outputhtml).Start()
+			if err != nil {
+				logger.Error().Msg(err.Error())
+			}
 		}
 	} else {
 		logger.Info().Msg("SAVE skipped")
@@ -345,6 +392,7 @@ func init() {
 	scanCmd.Flags().StringVarP(&outputHTML, fOutputHTML, "o", "", "Output html report.")
 	scanCmd.Flags().StringVarP(&outputJSON, fOutputJSON, "d", "", "Output raw data in json format.")
 	scanCmd.Flags().BoolVarP(&trace, fTrace, "t", false, "Set trace mode.")
+	scanCmd.Flags().BoolVarP(&show, fShow, "s", false, "Show result after scan.")
 
 	rootCmd.AddCommand(scanCmd)
 }
