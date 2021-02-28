@@ -57,3 +57,13 @@ func CreateLogger(moduleName string, trace bool) zerolog.Logger {
 
 	return zerolog.New(output).With().Timestamp().Caller().Logger()
 }
+
+// RemoveFile backup file into new
+func RemoveFile(logger zerolog.Logger, file string) {
+	info, err := os.Stat(file)
+	if !os.IsNotExist(err) {
+		newName := file + ".backup"
+		logger.Info().Msgf("\tRename previous file [%v] to [%v]", info.Name(), newName)
+		os.Rename(file, newName)
+	}
+}

@@ -147,11 +147,11 @@
 			</tr>
 			<tr>
 				<td>Filter</td>
-				<td>F1.txt</td>
+				<td>F3.txt</td>
 			</tr>
 			<tr>
 			<td>Creation time</td>
-			<td>2021-02-24 19:34:03.1390476 +0100 CET m=+0.032000401</td>
+			<td>2021-02-28 15:17:15.4295432 +0100 CET m=+0.027000101</td>
 		</tr>
 			</tbody>
 		</table>	
@@ -170,12 +170,12 @@
 			
 			<tr>
 				<td>File name</td>
-				<td><b>D:\Projects\Src\GoRex\example\F1.txt</b></td>
+				<td><b>D:\Projects\Src\GoRex\example\F3.txt</b></td>
 				<td>Scope(s)</td>
 				<td><b>4</b></td>
 				<td>All matches in file</td>
 				<td><b>4</b></td>
-				<td><b><a href="#D:\Projects\Src\GoRex\example\F1.txt">Go to file details</a></b></td>
+				<td><b><a href="#D:\Projects\Src\GoRex\example\F3.txt">Go to file details</a></b></td>
 			</tr>
 			
 			</tbody>
@@ -185,26 +185,22 @@
 	<div class="result">
 	
 		<div class="summary">
-		<p class="summary-title" id="D:\Projects\Src\GoRex\example\F1.txt">File name [<b><a class="summary-title" href="file:///D:\Projects\Src\GoRex\example\F1.txt">D:\Projects\Src\GoRex\example\F1.txt</a></b>][<a href="#title" class="summary-title">Go to top</a>]</p>
+		<p class="summary-title" id="D:\Projects\Src\GoRex\example\F3.txt">File name [<b><a class="summary-title" href="file:///D:\Projects\Src\GoRex\example\F3.txt">D:\Projects\Src\GoRex\example\F3.txt</a></b>][<a href="#title" class="summary-title">Go to top</a>]</p>
 		
 		<div class="scope">
-			<p>Scope name <b>example-find-any-command-in-scope</b></p>
+			<p>Scope name <b>test</b></p>
 			
-			<p>Scope line range: [<b>4</b>..<b>9</b>]</p>
+			<p>Scope line range: [<b>1</b>..<b>4</b>]</p>
 			<p type="button" class="collapsible">Scope content [show/hide]:</button>
 			<div class="content">
 				 
-[00004|&gt;][BEGIN]<br/>
+[00001|&gt;][BEGIN]<br/>
 				 
-[00005|-][    COMMAND=1]<br/>
+[00002| ][    COMMAND=1]<br/>
 				 
-[00006|-][    COMMAND=2]<br/>
+[00003| ][    COMMAND=2]<br/>
 				 
-[00007|-][    // this is a comment inside scope]<br/>
-				 
-[00008|-][    COMMAND=3]<br/>
-				 
-[00009|&lt;][END]<br/>
+[00004|&lt;][END]<br/>
 								
 			</div>	
 			
@@ -219,18 +215,13 @@
 				<tbody>
 					
 					<tr>
-						<td style="width:100px;">5</td>
+						<td style="width:100px;">2</td>
 						<td>    COMMAND=1</td>
 					</tr>
 					
 					<tr>
-						<td style="width:100px;">6</td>
+						<td style="width:100px;">3</td>
 						<td>    COMMAND=2</td>
-					</tr>
-					
-					<tr>
-						<td style="width:100px;">8</td>
-						<td>    COMMAND=3</td>
 					</tr>
 					
 				</tbody>
@@ -238,29 +229,93 @@
 		</div>
 		
 		<div class="scope">
-			<p>Scope name <b>example-find-any-command-in-scope</b></p>
+			<p>Scope name <b>test</b></p>
 			
-			<p>Scope line range: [<b>11</b>..<b>19</b>]</p>
+			<p>Scope line range: [<b>6</b>..<b>12</b>]</p>
 			<p type="button" class="collapsible">Scope content [show/hide]:</button>
 			<div class="content">
 				 
-[00011|&gt;][BEGIN]<br/>
+[00006|&gt;][BEGIN]<br/>
 				 
-[00012|-][    // this is a comment inside scope]<br/>
+[00007| ][// 0]<br/>
 				 
-[00013|-][    COMMAND ignore]<br/>
+[00008| ][    COMMAND=A1]<br/>
 				 
-[00014|-][    // this is a comment inside scope]<br/>
+[00009| ][    // 1]<br/>
 				 
-[00015|-][    COMMAND=A]<br/>
+[00010| ][    // 2]<br/>
 				 
-[00016|-][    COMMAND=B]<br/>
+[00011| ][    // 3]<br/>
 				 
-[00017|-][    // this is a comment inside scope]<br/>
+[00012|&lt;][BEGIN]<br/>
+								
+			</div>	
+			
+			<table class="tbl">
+				<caption>Matches:</caption>
+				<thead>
+					<tr>
+						<th style="width:100px;">Line index</th>
+						<th>Text</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td style="width:100px;">8</td>
+						<td>    COMMAND=A1</td>
+					</tr>
+					
+				</tbody>
+			</table>			
+		</div>
+		
+		<div class="scope">
+			<p>Scope name <b>test</b></p>
+			
+			<p>Scope line range: [<b>12</b>..<b>14</b>]</p>
+			<p type="button" class="collapsible">Scope content [show/hide]:</button>
+			<div class="content">
 				 
-[00018|-][    COMMAND=C]<br/>
+[00012|&gt;][BEGIN]<br/>
 				 
-[00019|&lt;][END]<br/>
+[00013| ][    COMMAND=X1]<br/>
+				 
+[00014|&lt;][BEGIN]<br/>
+								
+			</div>	
+			
+			<table class="tbl">
+				<caption>Matches:</caption>
+				<thead>
+					<tr>
+						<th style="width:100px;">Line index</th>
+						<th>Text</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td style="width:100px;">13</td>
+						<td>    COMMAND=X1</td>
+					</tr>
+					
+				</tbody>
+			</table>			
+		</div>
+		
+		<div class="scope">
+			<p>Scope name <b>test</b></p>
+			
+			<p>Scope line range: [<b>14</b>..<b>15</b>]</p>
+			<p type="button" class="collapsible">Scope content [show/hide]:</button>
+			<div class="content">
+				 
+[00014|&gt;][BEGIN]<br/>
+				 
+[00015| ][    COMMAND=Y1]<br/>
+				 
+[EOF]<br/>
 								
 			</div>	
 			
@@ -276,106 +331,7 @@
 					
 					<tr>
 						<td style="width:100px;">15</td>
-						<td>    COMMAND=A</td>
-					</tr>
-					
-					<tr>
-						<td style="width:100px;">16</td>
-						<td>    COMMAND=B</td>
-					</tr>
-					
-					<tr>
-						<td style="width:100px;">18</td>
-						<td>    COMMAND=C</td>
-					</tr>
-					
-				</tbody>
-			</table>			
-		</div>
-		
-		<div class="scope">
-			<p>Scope name <b>example-find-any-command-in-scope</b></p>
-			
-			<p>Scope line range: [<b>20</b>..<b>25</b>]</p>
-			<p type="button" class="collapsible">Scope content [show/hide]:</button>
-			<div class="content">
-				 
-[00020|&gt;][BEGIN]<br/>
-				 
-[00021|-][    // this is a comment inside scope]<br/>
-				 
-[00022|-][    COMMAND=A1]<br/>
-				 
-[00023|-][    COMMAND=A2]<br/>
-				 
-[00024|-][    COMMAND=A3]<br/>
-				 
-[00025|&lt;][END]<br/>
-								
-			</div>	
-			
-			<table class="tbl">
-				<caption>Matches:</caption>
-				<thead>
-					<tr>
-						<th style="width:100px;">Line index</th>
-						<th>Text</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-					<tr>
-						<td style="width:100px;">22</td>
-						<td>    COMMAND=A1</td>
-					</tr>
-					
-					<tr>
-						<td style="width:100px;">23</td>
-						<td>    COMMAND=A2</td>
-					</tr>
-					
-					<tr>
-						<td style="width:100px;">24</td>
-						<td>    COMMAND=A3</td>
-					</tr>
-					
-				</tbody>
-			</table>			
-		</div>
-		
-		<div class="scope">
-			<p>Scope name <b>example-find-any-command-in-scope</b></p>
-			
-			<p>Scope line range: [<b>27</b>..<b>29</b>]</p>
-			<p type="button" class="collapsible">Scope content [show/hide]:</button>
-			<div class="content">
-				 
-[00027|&gt;][BEGIN]<br/>
-				 
-[00028|-][    COMMAND=X1]<br/>
-				 
-[00029|-][    COMMAND=X2]<br/>
-								
-			</div>	
-			
-			<table class="tbl">
-				<caption>Matches:</caption>
-				<thead>
-					<tr>
-						<th style="width:100px;">Line index</th>
-						<th>Text</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-					<tr>
-						<td style="width:100px;">28</td>
-						<td>    COMMAND=X1</td>
-					</tr>
-					
-					<tr>
-						<td style="width:100px;">29</td>
-						<td>    COMMAND=X2</td>
+						<td>    COMMAND=Y1</td>
 					</tr>
 					
 				</tbody>

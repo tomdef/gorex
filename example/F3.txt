@@ -1,0 +1,15 @@
+BEGIN
+    COMMAND=1
+    COMMAND=2
+END
+// this is a comment 4
+BEGIN
+// 0
+    COMMAND=A1
+    // 1
+    // 2
+    // 3
+BEGIN
+    COMMAND=X1
+BEGIN
+    COMMAND=Y1

@@ -79,21 +79,12 @@ func gen(o string, logger zerolog.Logger) error {
 
 	squery := []string{"^\\s*COMMAND\\=.*$"}
 	scopes = append(scopes, common.ScopeConfig{
-		Name:            "example-find-any-command-in-scope",
-		StartQuery:      "^\\W*BEGIN$",
-		FinishQuery:     "^\\W*END$",
-		SearchQuery:     squery,
-		SearchQueryMode: common.SearchQueryOperatorAny,
-	})
-	squery = []string{
-		"^\\s*COMMAND\\=AAA$",
-		"^\\s*COMMAND\\=BBB$"}
-	scopes = append(scopes, common.ScopeConfig{
-		Name:            "example-find-two-commands-in-scope",
-		StartQuery:      "^\\W*BEGIN$",
-		FinishQuery:     "^\\W*END$",
-		SearchQuery:     squery,
-		SearchQueryMode: common.SearchQueryOperatorAll,
+		Name:                 "example-1",
+		StartQuery:           "^\\W*BEGIN$",
+		FinishQuery:          "^\\W*END$",
+		SearchQuery:          squery,
+		SearchQueryMode:      common.SearchQueryOperatorAny,
+		StartQueryCloseScope: true,
 	})
 
 	cfg := common.ScanConfig{

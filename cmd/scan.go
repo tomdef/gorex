@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"strings"
 	"sync"
 	"time"
 
@@ -19,7 +20,7 @@ import (
 )
 
 const (
-	notMatchedMark    = "-"
+	notMatchedMark    = " "
 	startScopeMark    = ">"
 	finishScopeMark   = "<"
 	matchedMark       = "*"
@@ -29,6 +30,7 @@ const (
 	fOutputJSON       = "outputdata"
 	fTrace            = "trace"
 	fShow             = "show"
+	eofLine           = "[EOF]"
 )
 
 var (
@@ -102,7 +104,7 @@ func findMatchesInScope(scope common.ScopeSummaryWithConfig, logger zerolog.Logg
 			isMatch := checkScopeMatch(line, r, true)
 
 			if isMatch == true {
-
+				findAndMarkAsMatches(&logger, &scope.ScopeSummary.ContentAsHTML, line)
 				if (scope.ScopeConfig.SearchQueryMode == common.SearchQueryOperatorAny) || (scope.ScopeConfig.SearchQueryMode == common.SearchQueryOperatorAll) || (j == 0) || (matchesOfRxCounter[j-1] > 0) {
 					matchesOfRxCounter[j] = matchesOfRxCounter[j] + 1
 					matchLines = append(matchLines, common.MatchLine{
@@ -127,6 +129,22 @@ func findMatchesInScope(scope common.ScopeSummaryWithConfig, logger zerolog.Logg
 	}
 
 	return result, nil
+}
+
+func findAndMarkAsMatches(logger *zerolog.Logger, l *[]string, x string) {
+
+	fx := "[" + x + "]"
+	logger.Trace().Msgf("*** Start search [%v]", x)
+
+	for i := 0; i < len(*l); i++ {
+		v := (*l)[i]
+
+		if strings.HasSuffix(v, fx) == true {
+			logger.Trace().Msgf("*** Found and modify line %v", v)
+			v = strings.Replace(v, "| ][", "|*][", 1)
+			(*l)[i] = v
+		}
+	}
 }
 
 func beginScope(logger *zerolog.Logger, fileName string, line string, index int, scopeName string, scopeIsOpen *bool, scopeSummary *common.ScopeSummary) {
@@ -155,10 +173,17 @@ func endScope(logger *zerolog.Logger, scan bool, line string, index int, scopeNa
 
 	if scan == false {
 		logger.Trace().Msg("End of file")
+
+		scopeSummary.Content = append(scopeSummary.Content, eofLine)
+		tmp := html.EscapeString(eofLine)
+		scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, tmp)
+
 	} else {
-		scopeSummary.Content = append(scopeSummary.Content, line)
-		tmp := fmt.Sprintf(formatContentHTML, index, finishScopeMark, line)
-		scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
+		if line != "" {
+			scopeSummary.Content = append(scopeSummary.Content, line)
+			tmp := fmt.Sprintf(formatContentHTML, index, finishScopeMark, line)
+			scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
+		}
 	}
 
 	scopeSummaryWithConfig := common.ScopeSummaryWithConfig{
@@ -270,7 +295,9 @@ func scan(input string, outputhtml string, outputjson string, trace bool) error 
 						beginScope(&logger, path, line, index, s.Name, &scopeIsOpen, &scopeSummary)
 
 					} else if (checkIfBeginScope(line, rxStart, false)) && (s.StartQueryCloseScope == true) && (scopeIsOpen == true) {
+
 						logger.Info().Msg("End scope because of StartQueryCloseScope flag.")
+
 						endScope(&logger, scan, line, index, s.Name, &scopeIsOpen, &scopeSummary, &s, &fileScopeSummary)
 						beginScope(&logger, path, line, index, s.Name, &scopeIsOpen, &scopeSummary)
 

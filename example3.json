@@ -1,11 +1,11 @@
 {
 	"folder": ".\\example",
-	"filter": "F1.txt",
+	"filter": "F3.txt",
 	"scopes": [
 		{
-			"name": "example-find-any-command-in-scope",
-			"startQuery": "^\\W*BEGIN\\W*$",
-			"finishQuery": "^\\W*(END)\\W*$",
+			"name": "test",
+			"startQuery": "^\\W*BEGIN$",
+			"finishQuery": "^\\W*END$",
 			"startQueryCloseScope": true,
 			"searchQuery": [
 				"^\\s*COMMAND\\=.*$"
