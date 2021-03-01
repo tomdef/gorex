@@ -1,6 +1,6 @@
 BEGIN
-    COMMAND=1
     COMMAND=2
+    COMMAND=1
 END
 // this is a comment 4
 BEGIN
@@ -13,3 +13,8 @@ BEGIN
     COMMAND=X1
 BEGIN
     COMMAND=Y1
+
+
+
+
+    

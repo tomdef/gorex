@@ -309,7 +309,10 @@ func scan(input string, outputhtml string, outputjson string, trace bool) error 
 						} else {
 							if scopeIsOpen == true {
 
-								scopeSummary.Content = append(scopeSummary.Content, line)
+								scopeSummary.Content = append(scopeSummary.Content, html.EscapeString(line))
+
+								logger.Info().Msgf("|%v|", line)
+
 								tmp := fmt.Sprintf(formatContentHTML, index, notMatchedMark, line)
 								scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
 

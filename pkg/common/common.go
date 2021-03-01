@@ -27,7 +27,7 @@ const (
 		border: 2px solid #1C6EA4;
 		background: #80DCF5;
 		font-family: Verdana, Geneva, sans-serif;
-		font-size: 14px;
+		font-size: 12px;
 		color: #000000;	
 		padding:5px;
 		margin-bottom:5px;
@@ -45,11 +45,11 @@ const (
 		border:1px;
 		padding:5px;
 		background:#FFFFFF;
-	}
+			}
 
     .result {
 		border: 2px solid #1C6EA4;
-		//background: #D0E4F5;
+		background: #FFFFFF;
 		font-family: Verdana, Geneva, sans-serif;
 		font-size: 14px;
 		color: #000000;
@@ -58,7 +58,6 @@ const (
 
     .summary {
 		border: 1px solid #1C6EA4;
-		background: #F5F5F5;
 		font-family: Verdana, Geneva, sans-serif;
 		font-size: 12px;
 		color: #000000;
@@ -79,7 +78,7 @@ const (
 		font-size: 12px;
 		color: #FFFFFF;
 		padding:5px;
-		margin:5px;
+		margin:-4px;
 	}
 
 	.tbl {
@@ -102,7 +101,7 @@ const (
 		text-align:left;
 		border:1px;
 		padding:5px;
-		background:#FFFFFF;
+		background:#F2F2F2;
 	}
 
 	.collapsible1 {
@@ -149,7 +148,7 @@ const (
 </style>
 <body>
 	<div class="title" id="title">
-	    <div class="poweredby">powered by gorex (https://github.com/tomdef/gorex)</div>
+	    <div class="poweredby">powered by gorex <a href="https://github.com/tomdef/gorex">(https://github.com/tomdef/gorex)</a></div>
 		<h2>Scan summary:</h2>		
 		<table class="title-tbl">
 		<caption>Parameters:</caption>
@@ -204,7 +203,7 @@ const (
 			<p>Scope name <b>{{.Name}}</b></p>
 			{{if .Started}}
 			<p>Scope line range: [<b>{{.Started}}</b>..<b>{{.Finished}}</b>]</p>
-			<p type="button" class="collapsible">Scope content [show/hide]:</button>
+			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
 			<div class="content">
 				{{range $element := .ContentAsHTML}} 
 {{$element}}<br/>
@@ -212,7 +211,7 @@ const (
 			</div>	
 			{{end}}
 			<table class="tbl">
-				<caption>Matches:</caption>
+				<caption>Match(es):</caption>
 				<thead>
 					<tr>
 						<th style="width:100px;">Line index</th>

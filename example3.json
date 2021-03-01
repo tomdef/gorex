@@ -1,6 +1,6 @@
 {
 	"folder": ".\\example",
-	"filter": "F3.txt",
+	"filter": "F*.txt",
 	"scopes": [
 		{
 			"name": "test",
