@@ -7,7 +7,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -15,6 +14,7 @@ import (
 	common "gorex/pkg/common"
 	"gorex/pkg/utils"
 
+	"github.com/dlclark/regexp2"
 	"github.com/rs/zerolog"
 	"github.com/spf13/cobra"
 )
@@ -31,6 +31,7 @@ const (
 	fTrace            = "trace"
 	fShow             = "show"
 	eofLine           = "[EOF]"
+	regexOpt          = regexp2.Singleline
 )
 
 var (
@@ -65,28 +66,31 @@ type channelFile chan (string)
 // functions
 // -----------------------------------------------------------------------------
 
-func checkIfBeginScope(line string, rx *regexp.Regexp, scopeIsOpen bool) bool {
-	return (scopeIsOpen == false) && (rx.MatchString(line) == true)
+func checkIfBeginScope(line string, rx *regexp2.Regexp, scopeIsOpen bool) bool {
+	m, e := rx.MatchString(line)
+	return (scopeIsOpen == false) && (m == true) && (e == nil)
 }
 
-func checkIfEndScope(line string, rx *regexp.Regexp, scopeIsOpen bool) bool {
-	return (scopeIsOpen == true) && (rx.MatchString(line) == true)
+func checkIfEndScope(line string, rx *regexp2.Regexp, scopeIsOpen bool) bool {
+	m, e := rx.MatchString(line)
+	return (scopeIsOpen == true) && (m == true) && (e == nil)
 }
 
-func checkScopeMatch(line string, rx *regexp.Regexp, scopeIsOpen bool) bool {
-	return (scopeIsOpen == true) && (rx.MatchString(line) == true)
+func checkScopeMatch(line string, rx *regexp2.Regexp, scopeIsOpen bool) bool {
+	m, e := rx.MatchString(line)
+	return (scopeIsOpen == true) && (m == true) && (e == nil)
 }
 
 func findMatchesInScope(scope common.ScopeSummaryWithConfig, logger zerolog.Logger) (common.ScopeSummary, error) {
 
-	var rx []*regexp.Regexp
+	var rx []*regexp2.Regexp
 	var result common.ScopeSummary = scope.ScopeSummary
 
 	for _, v := range scope.ScopeConfig.SearchQuery {
-		r, err := regexp.Compile(v)
-		if err != nil {
-			return scope.ScopeSummary, err
-		}
+		r := regexp2.MustCompile(v, regexOpt)
+		// if err != nil {
+		// 	return scope.ScopeSummary, err
+		// }
 
 		rx = append(rx, r)
 	}
@@ -259,15 +263,15 @@ func scan(input string, outputhtml string, outputjson string, trace bool) error 
 
 			for _, s := range sc.Scopes {
 
-				rxStart, err := regexp.Compile(s.StartQuery)
-				if err != nil {
-					logger.Err(err).Send()
-				}
+				rxStart := regexp2.MustCompile(s.StartQuery, regexOpt)
+				// if err != nil {
+				// 	logger.Err(err).Send()
+				// }
 
-				rxStop, err := regexp.Compile(s.FinishQuery)
-				if err != nil {
-					logger.Err(err).Send()
-				}
+				rxStop := regexp2.MustCompile(s.FinishQuery, regexOpt)
+				// if err != nil {
+				// 	logger.Err(err).Send()
+				// }
 
 				// read file line by line -->
 				file, err := os.Open(path)
