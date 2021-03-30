@@ -1,0 +1,16 @@
+{
+	"folder": ".\\example",
+	"filter": "*.txt",
+	"scopes": [
+		{
+			"name": "example-1",
+			"startQuery": "^\\W*BEGIN$",
+			"finishQuery": "^\\W*END$",
+			"startQueryCloseScope": true,
+			"searchQuery": [
+				"^\\s*COMMAND\\=.*$"
+			],
+			"searchQueryMode": 1
+		}
+	]
+}

@@ -135,7 +135,7 @@
 </style>
 <body>
 	<div class="title" id="title">
-	    <div class="poweredby">powered by gorex <a href="https://github.com/tomdef/gorex">(https://github.com/tomdef/gorex)</a></div>
+	    <div class="poweredby">:) powered by gorex <a href="https://github.com/tomdef/gorex">(https://github.com/tomdef/gorex)</a></div>
 		<h2>Scan summary:</h2>		
 		<table class="title-tbl">
 		<caption>Parameters:</caption>
@@ -146,11 +146,11 @@
 			</tr>
 			<tr>
 				<td>Filter</td>
-				<td>F*.txt</td>
+				<td>*.txt</td>
 			</tr>
 			<tr>
 			<td>Creation time</td>
-			<td>2021-03-07 19:38:05.4714713 +0100 CET m=+0.041487601</td>
+			<td>2021-03-11 23:11:06.9104165 +0100 CET m=+0.032195501</td>
 		</tr>
 			</tbody>
 		</table>	
@@ -207,7 +207,7 @@
 		<p class="summary-title" id="D:\Projects\Src\GoRex\example\F1.txt">File name [<b><a class="summary-title" href="file:///D:\Projects\Src\GoRex\example\F1.txt">D:\Projects\Src\GoRex\example\F1.txt</a></b>][<a href="#title" class="summary-title">Go to top</a>]</p>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>4</b>..<b>9</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
@@ -257,7 +257,7 @@
 		</div>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>11</b>..<b>19</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
@@ -313,7 +313,7 @@
 		</div>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>20</b>..<b>25</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
@@ -363,7 +363,7 @@
 		</div>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>27</b>..<b>31</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
@@ -411,7 +411,7 @@
 		</div>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>31</b>..<b>34</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
@@ -464,7 +464,7 @@
 		<p class="summary-title" id="D:\Projects\Src\GoRex\example\F2.txt">File name [<b><a class="summary-title" href="file:///D:\Projects\Src\GoRex\example\F2.txt">D:\Projects\Src\GoRex\example\F2.txt</a></b>][<a href="#title" class="summary-title">Go to top</a>]</p>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>2</b>..<b>7</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
@@ -514,7 +514,7 @@
 		</div>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>9</b>..<b>15</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
@@ -578,7 +578,7 @@
 		<p class="summary-title" id="D:\Projects\Src\GoRex\example\F3.txt">File name [<b><a class="summary-title" href="file:///D:\Projects\Src\GoRex\example\F3.txt">D:\Projects\Src\GoRex\example\F3.txt</a></b>][<a href="#title" class="summary-title">Go to top</a>]</p>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>1</b>..<b>4</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
@@ -619,7 +619,7 @@
 		</div>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>6</b>..<b>12</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
@@ -661,7 +661,7 @@
 		</div>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>12</b>..<b>14</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
@@ -695,7 +695,7 @@
 		</div>
 		
 		<div class="scope">
-			<p>Scope name <b>test</b></p>
+			<p>Scope name <b>example-1</b></p>
 			
 			<p>Scope line range: [<b>14</b>..<b>20</b>]</p>
 			<p type="button" class="collapsible"><span style="cursor:pointer">Scope content [show/hide]:</span></button>
