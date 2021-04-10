@@ -3,43 +3,86 @@ package common
 import (
 	_ "embed"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"io/ioutil"
-	"os"
-	"text/template"
+	"html/template"
+	"io"
+	"strconv"
 	"time"
+)
+
+const (
+	MustMatchToAll       = "*"
+	MustMatchToOneOrMore = "+"
+	MustNotMatchToAny    = "!"
 )
 
 //go:embed htmlPattern.html
 var htmlPattern string
 
 // -----------------------------------------------------------------------------
-// types
+// Types
 // -----------------------------------------------------------------------------
 
-// SearchQueryOperator describe types of operator ...
-type SearchQueryOperator int
-
-const (
-	//SearchQueryOperatorAll is AND operator for queries
-	SearchQueryOperatorAll SearchQueryOperator = iota
-	//SearchQueryOperatorAny is OR operator for queries
-	SearchQueryOperatorAny
-	//SearchQueryOperatorStrictOrder ...
-	SearchQueryOperatorStrictOrder
-)
-
+// -----------------------------------------------------------------------------
 // Scan config structs :
+
+// MatchConfig provides configuration of single match
+type MatchConfig struct {
+	Name           string `json:"name" xml:"name,attr"`
+	Match          string `json:"match" xml:"match,attr"`
+	IgnoreInResult bool   `json:"ignoreInResult" xml:"ignoreInResult,attr"`
+	Occurrence     string `json:"occurrence" xml:"occurrence,attr"`
+}
+
+// IsValid verified MatchConfig settings
+func (cfg MatchConfig) IsValid() error {
+
+	if cfg.Occurrence == "*" || cfg.Occurrence == "!" || cfg.Occurrence == "+" {
+		return nil
+	} else {
+		if _, err := strconv.Atoi(cfg.Occurrence); err != nil {
+			return fmt.Errorf("match %v has not valid occurrence [%v]", cfg.Name, cfg.Occurrence)
+		}
+	}
+
+	return nil
+}
 
 // ScopeConfig provides configuration of scan
 type ScopeConfig struct {
-	Name                 string              `json:"name" xml:"name,attr"`
-	StartQuery           string              `json:"startQuery" xml:"startQuery"`
-	FinishQuery          string              `json:"finishQuery" xml:"finishQuery"`
-	StartQueryCloseScope bool                `json:"startQueryCloseScope" xml:"startQueryCloseScope"`
-	SearchQuery          []string            `json:"searchQuery" xml:"searchQuery"`
-	SearchQueryMode      SearchQueryOperator `json:"searchQueryMode" xml:"searchQueryMode"`
+	Name      string        `json:"name" xml:"name,attr"`
+	Begin     string        `json:"begin" xml:"begin"`
+	End       string        `json:"end" xml:"end"`
+	AutoClose bool          `json:"autoClose" xml:"autoClose"`
+	Matches   []MatchConfig `json:"matches" xml:"matches"`
+}
+
+// IsValid verified ScopeConfig settings
+func (cfg ScopeConfig) IsValid() error {
+
+	if cfg.Name == "" {
+		return fmt.Errorf("scope %v name is empty", cfg)
+	}
+
+	if cfg.Begin == "" {
+		return fmt.Errorf("scope %v begin expression is empty", cfg)
+	}
+
+	if cfg.End == "" {
+		return fmt.Errorf("scope %v end expression is empty", cfg)
+	}
+
+	if len(cfg.Matches) == 0 {
+		return fmt.Errorf("scope %v matches list is empty", cfg)
+	}
+
+	for i, v := range cfg.Matches {
+		if e := v.IsValid(); e != nil {
+			return fmt.Errorf("scope %v matche #%v in not valid: %v", cfg, i, e.Error())
+		}
+	}
+
+	return nil
 }
 
 // ScanConfig provides scan configuration
@@ -49,6 +92,7 @@ type ScanConfig struct {
 	Scopes []ScopeConfig `json:"scopes" xml:"scopes"`
 }
 
+// -----------------------------------------------------------------------------
 // Scan summary structs :
 
 // FileScopeSummary provides...
@@ -80,6 +124,7 @@ type ScanSummary struct {
 	Folder       string
 	Filter       string
 	CreationTime time.Time
+	DurationTime time.Duration
 	Summary      []FileScopeSummary
 	ScanFiles    int
 }
@@ -90,28 +135,47 @@ type ScopeSummaryWithConfig struct {
 	ScopeConfig  ScopeConfig
 }
 
-// ReadScopeConfiguration read ScanConfig from file
-func ReadScopeConfiguration(configPath string) (ScanConfig, error) {
+// -----------------------------------------------------------------------------
+// Extensions
+// -----------------------------------------------------------------------------
 
-	jsonFile, err := os.Open(configPath)
-	if err != nil {
-		return ScanConfig{}, err
-	}
+//Read ScopeConfiguration read ScanConfig from content
+func ReadScanConfiguration(content []byte) (ScanConfig, error) {
 
-	defer jsonFile.Close()
+	// jsonFile, err := os.Open(configPath)
+	// if err != nil {
+	// 	return ScanConfig{}, err
+	// }
 
-	byteValue, err := ioutil.ReadAll(jsonFile)
+	// defer jsonFile.Close()
 
-	if err != nil {
-		return ScanConfig{}, err
-	}
+	// byteValue, err := ioutil.ReadAll(jsonFile)
+
+	// if err != nil {
+	// 	return ScanConfig{}, err
+	// }
 
 	var scanConfig ScanConfig
 
-	if json.Unmarshal(byteValue, &scanConfig) != nil {
-		return ScanConfig{}, err
+	if e := json.Unmarshal(content, &scanConfig); e != nil {
+		return ScanConfig{}, e
 	}
+
+	if e := scanConfig.IsValid(); e != nil {
+		return ScanConfig{}, e
+	}
+
 	return scanConfig, nil
+}
+
+//ReadScopeConfiguration read ScanConfig from content
+func (cfg ScanConfig) WriteScanConfiguration() ([]byte, error) {
+
+	if e := cfg.IsValid(); e != nil {
+		return nil, e
+	}
+
+	return json.Marshal(cfg)
 }
 
 // -----------------------------------------------------------------------------
@@ -122,68 +186,73 @@ func ReadScopeConfiguration(configPath string) (ScanConfig, error) {
 func (cfg ScanConfig) IsValid() error {
 
 	if cfg.Folder == "" {
-		return errors.New("Empty folder")
+		return fmt.Errorf("scan %v folder is empty", cfg)
 	}
 
 	if cfg.Filter == "" {
-		return errors.New("Empty filter")
+		return fmt.Errorf("scan %v filter is empty", cfg)
 	}
 
 	if len(cfg.Scopes) == 0 {
-		return errors.New("Empty scopes")
+		return fmt.Errorf("scan %v does not have scopes", cfg)
 	}
 
-	for i, v := range cfg.Scopes {
-		if v.Name == "" {
-			return fmt.Errorf("Empty name of scope [%v]", i)
-		}
-		if len(v.SearchQuery) == 0 {
-			return fmt.Errorf("Empty search queries of scope [%v]", i)
-		}
+	for _, v := range cfg.Scopes {
 
-		for j, q := range v.SearchQuery {
-			if q == "" {
-				return fmt.Errorf("Empty #%v search query of scope [%v]", j, i)
-			}
-		}
-
-		if (v.StartQuery != "") && (v.FinishQuery == "") {
-			return fmt.Errorf("Empty finish query of scope [%v]", i)
-		}
-		if (v.StartQuery == "") && (v.FinishQuery != "") {
-			return fmt.Errorf("Empty start query of scope [%v]", i)
+		if e := v.IsValid(); e != nil {
+			return e
 		}
 	}
 
 	return nil
 }
 
-// LogToFile writes summary to json file
-func (s ScanSummary) LogToFile(p string) error {
-	file, _ := json.MarshalIndent(s, "", " ")
+// LogToHTML generate html summary file
+func (s ScanSummary) WriteAsHTML(wr io.Writer) error {
 
-	return ioutil.WriteFile(p, file, 0644)
-}
-
-// LogToHTML generate html log file
-func (s ScanSummary) LogToHTML(p string) error {
 	if s.Summary == nil {
-		return errors.New("scan summary does not contains any summaries")
+		return fmt.Errorf("scan summary does not contains any summaries")
 	}
-
-	f, err := os.Create(p)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
 
 	t, err := template.New("template").Parse(htmlPattern)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot read html template. %v", err.Error())
 	}
-	err = t.Execute(f, s)
+
+	err = t.Execute(wr, s)
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot create html content. %v", err.Error())
 	}
+
 	return nil
 }
+
+// LogToFile generate json summary file
+// func (s ScanSummary) LogToFile(p string) error {
+// 	file, _ := json.MarshalIndent(s, "", " ")
+
+// 	return ioutil.WriteFile(p, file, 0644)
+// }
+
+// // LogToHTML generate html summary file
+// func (s ScanSummary) LogToHTML(p string) error {
+// 	if s.Summary == nil {
+// 		return errors.New("scan summary does not contains any summaries")
+// 	}
+
+// 	f, err := os.Create(p)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	defer f.Close()
+
+// 	t, err := template.New("template").Parse(htmlPattern)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	err = t.Execute(f, s)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	return nil
+// }

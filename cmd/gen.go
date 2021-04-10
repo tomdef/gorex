@@ -22,7 +22,7 @@ var (
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 
-			logger := utils.CreateLogger("scan", trace)
+			logger := utils.CreateLogger("gen", trace)
 			o, err := cmd.Flags().GetString(fOutput)
 
 			if err != nil {
@@ -51,14 +51,14 @@ func writeScopeConfiguration(config common.ScanConfig, p string) error {
 	isXML := strings.HasSuffix(p, ".xml")
 	isJSON := strings.HasSuffix(p, ".json")
 
-	if (isXML == false) && (isJSON == false) {
-		return errors.New("Invalid file extension. Should be json or xml")
+	if !isXML && !isJSON {
+		return errors.New("invalid file extension. Should be json or xml")
 	}
 
 	var b []byte
 	var e error
 
-	if isJSON == true {
+	if isJSON {
 		b, e = json.MarshalIndent(config, "", "\t")
 	} else {
 		b, e = xml.MarshalIndent(config, "", "\t")
@@ -75,22 +75,24 @@ func gen(o string, logger zerolog.Logger) error {
 	logger.Info().Msgf("Start generate example file. Output file path : %v", o)
 	defer logger.Info().Msg("End")
 
-	var scopes []common.ScopeConfig
-
-	squery := []string{"^\\s*COMMAND\\=.*$"}
-	scopes = append(scopes, common.ScopeConfig{
-		Name:                 "example-1",
-		StartQuery:           "^\\W*BEGIN$",
-		FinishQuery:          "^\\W*END$",
-		SearchQuery:          squery,
-		SearchQueryMode:      common.SearchQueryOperatorAny,
-		StartQueryCloseScope: true,
-	})
-
 	cfg := common.ScanConfig{
 		Folder: ".\\example",
 		Filter: "*.txt",
-		Scopes: scopes,
+		Scopes: []common.ScopeConfig{
+			{
+				Name:      "example-1",
+				Begin:     "^\\W*BEGIN$",
+				End:       "^\\W*END$",
+				AutoClose: true,
+				Matches: []common.MatchConfig{
+					{
+						Name:       "match-1",
+						Match:      "^\\s*COMMAND\\=.*$",
+						Occurrence: "OnceOrMore",
+					},
+				},
+			},
+		},
 	}
 
 	if err := cfg.IsValid(); err != nil {

@@ -4,13 +4,16 @@
 	"scopes": [
 		{
 			"name": "example-1",
-			"startQuery": "^\\W*BEGIN$",
-			"finishQuery": "^\\W*END$",
-			"startQueryCloseScope": true,
-			"searchQuery": [
-				"^\\s*COMMAND\\=.*$"
-			],
-			"searchQueryMode": 1
+			"begin": "^\\W*BEGIN$",
+			"end": "^\\W*END$",
+			"autoClose": true,
+			"matches": [
+				{
+					"name": "match-1",
+					"match": "^\\s*COMMAND\\=.*$",
+					"occurrences": "1+"
+				}
+			]
 		}
 	]
 }

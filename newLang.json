@@ -1,0 +1,36 @@
+{
+	"folder": ".\\example",
+	"filter": "*.txt",
+	"scopes": [
+		{
+			"name": "example-1",
+			"begin": "^\\W*BEGIN$",
+			"end": "^\\W*END$",
+			"autoClose": true,
+			"matches": [
+				{	
+					"name": "1", 
+					"match" : "^\\s*COMMAND\\=.*$", 
+					"occurrences": "1" 
+				},
+				{	
+					"name": "2", 
+					"match" : "^\\s*OTHER\\=.*$", 
+					"occurrences": "1+" 
+				},
+				{	"name": "3", 
+					"match" : "^\\s*OTHER\\=.*$", 
+					"occurrences": "2+" 
+				},
+				{	"name": "4", 
+					"match" : "^\\s*OTHER\\=.*$", 
+					"occurrences": "0" 
+				},
+				{	"name": "5", 
+					"match" : "^\\s*OTHER\\=.*$", 
+					"occurrences": "*" 
+				}
+			]
+		}
+	]
+}
