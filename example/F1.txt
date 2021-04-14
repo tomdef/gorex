@@ -1,34 +1,12 @@
-// this is a comment 1
-// this is a comment 2
-// this is a comment 3
+// *** should match 
 BEGIN
-    COMMAND=1
-    COMMAND=2
-    // this is a comment inside scope
-    COMMAND=3
+    COMMAND=11
+    COMMAND=22
+    PARAMETER(123)
 END
-// this is a comment 4
+//
 BEGIN
-    // this is a comment inside scope
-    COMMAND ignore
-    // this is a comment inside scope
-    COMMAND=A
-    COMMAND=B
-    // this is a comment inside scope
-    COMMAND=C
+    COMMAND
+    COMMAND
+    COMMAND
 END
-BEGIN
-    // this is a comment inside scope
-    COMMAND=A1
-    COMMAND=A2
-    COMMAND=A3
-END
-    COMMAND=OutOfScope
-BEGIN
-    COMMAND=X1
-    COMMAND=X2
-    COMMAND=X3
-BEGIN
-    COMMAND=Y1
-    COMMAND=Y2
-    COMMAND=Y3

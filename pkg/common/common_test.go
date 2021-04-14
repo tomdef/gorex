@@ -65,6 +65,155 @@ func Test_MatchConfig_ShouldBeNotValid(t *testing.T) {
 	}
 }
 
+func Test_MatchConfig_IsMatchOccurrence(t *testing.T) {
+
+	var lines []string = []string{"line1", "line2", "line3"}
+
+	var matchConfigAll = MatchConfig{
+		Name:           "match-all",
+		Match:          ".*",
+		IgnoreInResult: false,
+		Occurrence:     "*",
+	}
+
+	var matchConfigAny = MatchConfig{
+		Name:           "match-any",
+		Match:          ".*",
+		IgnoreInResult: false,
+		Occurrence:     "+",
+	}
+
+	var matchConfigNone = MatchConfig{
+		Name:           "match-none",
+		Match:          ".*",
+		IgnoreInResult: false,
+		Occurrence:     "!",
+	}
+
+	var matchConfig3 = MatchConfig{
+		Name:           "match-3",
+		Match:          ".*",
+		IgnoreInResult: false,
+		Occurrence:     "3",
+	}
+
+	if v := matchConfigAll.IsMatchOccurrence(lines, 3); v == false {
+		t.Errorf("Lines not match to [%v]", matchConfigAll.Name)
+	}
+
+	if v := matchConfigAll.IsMatchOccurrence(lines, 4); v == true {
+		t.Errorf("Lines should not match to [%v]", matchConfigAll.Name)
+	}
+
+	if v := matchConfigAny.IsMatchOccurrence(lines, 100); v == false {
+		t.Errorf("Lines not match to [%v]", matchConfigAny.Name)
+	}
+
+	if v := matchConfigAny.IsMatchOccurrence([]string{}, 100); v == true {
+		t.Errorf("Lines should not match to [%v]", matchConfigAny.Name)
+	}
+
+	if v := matchConfigNone.IsMatchOccurrence([]string{}, 100); v == false {
+		t.Errorf("Lines not match to [%v]", matchConfigNone.Name)
+	}
+
+	if v := matchConfigNone.IsMatchOccurrence(lines, 100); v == true {
+		t.Errorf("Lines should not match to [%v]", matchConfigNone.Name)
+	}
+
+	if v := matchConfig3.IsMatchOccurrence(lines, 100); v == false {
+		t.Errorf("Lines not match to [%v]", matchConfig3.Name)
+	}
+
+	if v := matchConfig3.IsMatchOccurrence([]string{"line1"}, 100); v == true {
+		t.Errorf("Lines should not match to [%v]", matchConfig3.Name)
+	}
+}
+
+func Test_MatchConfig_IsMatch(t *testing.T) {
+
+	var lines []MatchLine = []MatchLine{
+		{
+			Index:      0,
+			Line:       "line ABC",
+			MatchNames: []string{},
+		},
+		{
+			Index:      1,
+			Line:       "line 500",
+			MatchNames: []string{},
+		},
+		{
+			Index:      2,
+			Line:       "line 123",
+			MatchNames: []string{},
+		},
+		{
+			Index:      3,
+			Line:       "/* ***",
+			MatchNames: []string{},
+		},
+		{
+			Index:      4,
+			Line:       "/* 000",
+			MatchNames: []string{},
+		},
+		{
+			Index:      5,
+			Line:       "line 999",
+			MatchNames: []string{},
+		},
+		{
+			Index:      6,
+			Line:       "line 1000",
+			MatchNames: []string{},
+		},
+	}
+
+	var matchConfigAll = MatchConfig{
+		Name:           "match-all",
+		Match:          "^.*$",
+		IgnoreInResult: false,
+		Occurrence:     "*",
+	}
+
+	var matchConfigAny = MatchConfig{
+		Name:           "match-any",
+		Match:          "^\\w+\\W+\\d+$",
+		IgnoreInResult: false,
+		Occurrence:     "+",
+	}
+
+	var matchConfigNone = MatchConfig{
+		Name:           "match-none",
+		Match:          "^.*\\s+$",
+		IgnoreInResult: false,
+		Occurrence:     "!",
+	}
+
+	var matchConfig3 = MatchConfig{
+		Name:           "match-3",
+		Match:          "^\\w+\\W+\\d{3}$",
+		IgnoreInResult: false,
+		Occurrence:     "3",
+	}
+
+	if b := matchConfigAll.IsMatch(&lines); b == false {
+		t.Errorf("Lines not match to [%v]", matchConfigAll.Name)
+	}
+
+	if b := matchConfigAny.IsMatch(&lines); b == false {
+		t.Errorf("Lines not match to [%v]", matchConfigAny.Name)
+	}
+
+	if b := matchConfigNone.IsMatch(&lines); b == false {
+		t.Errorf("Lines should not match to [%v]", matchConfigNone.Name)
+	}
+	if b := matchConfig3.IsMatch(&lines); b == false {
+		t.Errorf("Lines not match to [%v]", matchConfig3.Name)
+	}
+}
+
 func Test_ScanConfig_ShouldBeValid(t *testing.T) {
 
 	s := ScanConfig{

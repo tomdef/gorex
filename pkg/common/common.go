@@ -6,8 +6,12 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"io/ioutil"
+	"os"
 	"strconv"
 	"time"
+
+	"github.com/dlclark/regexp2"
 )
 
 const (
@@ -46,6 +50,51 @@ func (cfg MatchConfig) IsValid() error {
 	}
 
 	return nil
+}
+
+// IsMatchOccurrence check if string collection is enought
+func (cfg MatchConfig) IsMatch(matchLines []MatchLine) []int {
+
+	allLinesCount := len(matchLines)
+	var allMatchedLines []string
+	var result []int
+
+	rx := regexp2.MustCompile(cfg.Match, regexp2.Singleline)
+
+	for _, l := range matchLines {
+		if m, e := rx.MatchString(l.Line); m && e == nil {
+			allMatchedLines = append(allMatchedLines, l.Line)
+			result = append(result, l.Index)
+		}
+	}
+
+	if cfg.IsMatchOccurrence(allMatchedLines, allLinesCount) {
+		return result
+	} else {
+		return []int{}
+	}
+}
+
+// IsMatchOccurrence check if string collection is enought
+func (cfg MatchConfig) IsMatchOccurrence(lines []string, allLinesCount int) bool {
+
+	if cfg.Occurrence == "*" && len(lines) == allLinesCount {
+		return true
+	}
+
+	if cfg.Occurrence == "+" && len(lines) >= 1 {
+		return true
+	}
+
+	if cfg.Occurrence == "!" && len(lines) == 0 {
+		return true
+	}
+
+	if v, err := strconv.Atoi(cfg.Occurrence); err == nil && v == len(lines) {
+		return true
+	}
+
+	return false
 }
 
 // ScopeConfig provides configuration of scan
@@ -104,8 +153,9 @@ type FileScopeSummary struct {
 
 // MatchLine provides...
 type MatchLine struct {
-	Line  string `json:"line" xml:"line,attr"`
-	Index int    `json:"index" xml:"index,attr"`
+	Line       string   `json:"line" xml:"line,attr"`
+	Index      int      `json:"index" xml:"index,attr"`
+	MatchNames []string `json:"matchNames" xml:"matchNames,attr"`
 }
 
 // ScopeSummary provides...
@@ -142,19 +192,6 @@ type ScopeSummaryWithConfig struct {
 //Read ScopeConfiguration read ScanConfig from content
 func ReadScanConfiguration(content []byte) (ScanConfig, error) {
 
-	// jsonFile, err := os.Open(configPath)
-	// if err != nil {
-	// 	return ScanConfig{}, err
-	// }
-
-	// defer jsonFile.Close()
-
-	// byteValue, err := ioutil.ReadAll(jsonFile)
-
-	// if err != nil {
-	// 	return ScanConfig{}, err
-	// }
-
 	var scanConfig ScanConfig
 
 	if e := json.Unmarshal(content, &scanConfig); e != nil {
@@ -166,6 +203,24 @@ func ReadScanConfiguration(content []byte) (ScanConfig, error) {
 	}
 
 	return scanConfig, nil
+}
+
+//ReadScanConfiguration read ScanConfig from file path
+func ReadScanConfigurationFromFile(name string) (ScanConfig, error) {
+
+	jsonConfigFile, err := os.Open(name)
+	if err != nil {
+		return ScanConfig{}, err
+	}
+	defer jsonConfigFile.Close()
+
+	byteValue, err := ioutil.ReadAll(jsonConfigFile)
+
+	if err != nil {
+		return ScanConfig{}, err
+	}
+
+	return ReadScanConfiguration(byteValue)
 }
 
 //ReadScopeConfiguration read ScanConfig from content
@@ -225,6 +280,16 @@ func (s ScanSummary) WriteAsHTML(wr io.Writer) error {
 	}
 
 	return nil
+}
+
+// LogToHTML generate html summary file
+func (s ScanSummary) AsJSON() ([]byte, error) {
+
+	if s.Summary == nil {
+		return []byte{}, fmt.Errorf("scan summary does not contains any summaries")
+	}
+
+	return json.MarshalIndent(s, "", " ")
 }
 
 // LogToFile generate json summary file

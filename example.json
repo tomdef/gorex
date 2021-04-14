@@ -1,6 +1,6 @@
 {
 	"folder": ".\\example",
-	"filter": "*.txt",
+	"filter": "F1.txt",
 	"scopes": [
 		{
 			"name": "example-1",
@@ -9,10 +9,20 @@
 			"autoClose": true,
 			"matches": [
 				{
-					"name": "match-1",
-					"match": "^\\s*COMMAND\\=.*$",
-					"occurrences": "1+"
-				}
+					"name": "match-command-with-integer",
+					"match": "^\\s*COMMAND\\=\\d+$",
+					"occurrence": "2"
+				},
+				{
+					"name": "match-parameter",
+					"match": "^\\s*PARAMETER\\(\\d+\\)$",
+					"occurrence": "+"
+				},		
+				{
+					"name": "match-close-bracket",
+					"match": "^.*\\)$",
+					"occurrence": "+"
+				}		
 			]
 		}
 	]
