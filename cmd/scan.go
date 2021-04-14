@@ -1,7 +1,10 @@
 package cmd
 
 import (
+	"gorex/pkg/common"
 	"gorex/pkg/utils"
+	"io/ioutil"
+	"os"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -55,7 +58,30 @@ func scan(input string, outputhtml string, outputjson string, trace bool, show b
 	durationStart := time.Now()
 
 	logger := utils.CreateLogger("scan", trace)
-	logger.Info().Msgf("START SCAN. Command(s) file path : %v", input)
+
+	logger.Info().Msgf("READ SCAN CONFIGURATION. Command(s) file path : %v", input)
+
+	jsonConfigFile, err := os.Open(input)
+	if err != nil {
+		logger.Err(err)
+		return err
+	}
+	defer jsonConfigFile.Close()
+
+	byteValue, err := ioutil.ReadAll(jsonConfigFile)
+
+	if err != nil {
+		logger.Err(err)
+		return err
+	}
+
+	inputScanConfig, err := common.ReadScanConfiguration(byteValue)
+	if err != nil {
+		logger.Err(err)
+		return err
+	}
+
+	logger.Info().Msgf("START SCAN. Folder [%v]", inputScanConfig.Folder)
 	// -->
 
 	// <--
