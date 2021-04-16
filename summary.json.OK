@@ -1,0 +1,116 @@
+{
+ "Folder": ".\\example",
+ "Filter": "F1.txt",
+ "CreationTime": "2021-04-16T20:23:16.7857687+02:00",
+ "DurationTime": 0,
+ "Summary": [
+  {
+   "fileName": "D:\\Projects\\Src\\GoRex\\example\\F1.txt",
+   "scopes": [
+    {
+     "name": "example-1",
+     "fileName": "D:\\Projects\\Src\\GoRex\\example\\F1.txt",
+     "started": 2,
+     "finished": 6,
+     "content": [
+      "BEGIN",
+      "    COMMAND=11",
+      "    COMMAND=22",
+      "    PARAMETER(123)",
+      "END"
+     ],
+     "ContentAsHTML": [
+      "[00002|\u0026gt;][BEGIN]",
+      "[00003| ][    COMMAND=11]",
+      "[00004| ][    COMMAND=22]",
+      "[00005| ][    PARAMETER(123)]",
+      "[00006|\u0026lt;][END]"
+     ],
+     "matches": [
+      {
+       "line": "BEGIN",
+       "index": 0,
+       "matchNames": []
+      },
+      {
+       "line": "    COMMAND=11",
+       "index": 1,
+       "matchNames": [
+        "match-command-with-integer"
+       ]
+      },
+      {
+       "line": "    COMMAND=22",
+       "index": 2,
+       "matchNames": [
+        "match-command-with-integer"
+       ]
+      },
+      {
+       "line": "    PARAMETER(123)",
+       "index": 3,
+       "matchNames": [
+        "match-parameter",
+        "match-close-bracket"
+       ]
+      },
+      {
+       "line": "END",
+       "index": 4,
+       "matchNames": []
+      }
+     ]
+    },
+    {
+     "name": "example-1",
+     "fileName": "D:\\Projects\\Src\\GoRex\\example\\F1.txt",
+     "started": 8,
+     "finished": 12,
+     "content": [
+      "BEGIN",
+      "    COMMAND",
+      "    COMMAND",
+      "    COMMAND",
+      "END"
+     ],
+     "ContentAsHTML": [
+      "[00008|\u0026gt;][BEGIN]",
+      "[00009| ][    COMMAND]",
+      "[00010| ][    COMMAND]",
+      "[00011| ][    COMMAND]",
+      "[00012|\u0026lt;][END]"
+     ],
+     "matches": [
+      {
+       "line": "BEGIN",
+       "index": 0,
+       "matchNames": []
+      },
+      {
+       "line": "    COMMAND",
+       "index": 1,
+       "matchNames": []
+      },
+      {
+       "line": "    COMMAND",
+       "index": 2,
+       "matchNames": []
+      },
+      {
+       "line": "    COMMAND",
+       "index": 3,
+       "matchNames": []
+      },
+      {
+       "line": "END",
+       "index": 4,
+       "matchNames": []
+      }
+     ]
+    }
+   ],
+   "AllMatches": 2
+  }
+ ],
+ "ScanFiles": 1
+}

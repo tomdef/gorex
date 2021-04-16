@@ -149,41 +149,44 @@ func scan(input string, outputhtml string, outputjson string, trace bool, show b
 
 	if (outputhtml != "") || (outputjson != "") {
 		logger.Info().Msg("SAVE...")
-		// if outputhtml != "" {
 
-		// 	info, err := os.Stat(outputhtml)
-		// 	if !os.IsNotExist(err) {
-		// 		newName := outputhtml + ".backup"
-		// 		logger.Info().Msgf("\tRename previous file [%v] to [%v]", info.Name(), newName)
-		// 		os.Rename(outputhtml, newName)
-		// 	}
+		if outputhtml != "" {
 
-		// 	logger.Info().Msgf("\tSave to [%v]", outputhtml)
-		// 	e := scanSummary.LogToHTML(outputhtml)
-		// 	if e != nil {
-		// 		logger.Err(err)
-		// 	}
-		// }
+			var b []byte
+			var e error
+			if b, e = scanSummary.AsHTML(); e != nil {
+				logger.Error().Msgf("Cannot save summary as HTML. %v", e.Error())
+			} else {
+				info, err := os.Stat(outputhtml)
+				if !os.IsNotExist(err) {
+					newName := outputhtml + ".backup"
+					logger.Info().Msgf("\tRename previous file [%v] to [%v]", info.Name(), newName)
+					os.Rename(outputhtml, newName)
+				}
+
+				logger.Info().Msgf("\tSave to HTML format file [%v]", outputhtml)
+				os.WriteFile(outputhtml, b, os.ModeExclusive)
+			}
+		}
+
 		if outputjson != "" {
 
 			var b []byte
 			var e error
 			if b, e = scanSummary.AsJSON(); e != nil {
-				logger.Error().Msgf("Cannot save summary as json. %v", e.Error())
+				logger.Error().Msgf("Cannot save summary as JSON. %v", e.Error())
 			} else {
-				logger.Info().Msgf("\tSave to [%v]", outputjson)
+				info, err := os.Stat(outputjson)
+				if !os.IsNotExist(err) {
+					newName := outputjson + ".backup"
+					logger.Info().Msgf("\tRename previous file [%v] to [%v]", info.Name(), newName)
+					os.Rename(outputjson, newName)
+				}
+
+				logger.Info().Msgf("\tSave to JSON format file [%v]", outputjson)
 				os.WriteFile(outputjson, b, os.ModeExclusive)
 			}
 		}
-
-		// if (outputjson != "") || (outputhtml != "") && (show == true) {
-
-		// 	logger.Info().Msg("SHOW result...")
-		// 	err = exec.Command("rundll32", "url.dll,FileProtocolHandler", outputhtml).Start()
-		// 	if err != nil {
-		// 		logger.Error().Msg(err.Error())
-		// 	}
-		// }
 	} else {
 		logger.Info().Msg("SAVE skipped")
 	}
@@ -342,6 +345,7 @@ func endScope(logger *zerolog.Logger, scan bool, line string, index int, scopeNa
 	if len(s) > 0 {
 		mutex.Lock()
 		logger.Trace().Msgf("\t[%v] update summary. Add [%v] match(es) from [%v].", pathHash, len(s), scopeConfig.Name)
+
 		scopeSummary.Matches = append(scopeSummary.Matches, s...)
 
 		for _, m := range scopeSummary.Matches {
@@ -349,7 +353,6 @@ func endScope(logger *zerolog.Logger, scan bool, line string, index int, scopeNa
 		}
 
 		if len(scopeSummary.Matches) > 0 {
-
 			fileScopeSummary.Scopes = append(fileScopeSummary.Scopes, *scopeSummary)
 			fileScopeSummary.AllMatches = len(fileScopeSummary.Scopes)
 		}
@@ -366,27 +369,31 @@ func findMatchesInScope(logger zerolog.Logger, scopeConfig *common.ScopeConfig, 
 		pathHash, scopeSummary.Name, scopeSummary.FileName, scopeSummary.Started, scopeSummary.Finished)
 
 	var matchLines []common.MatchLine
+	var result []common.MatchLine
 
 	for i, line := range scopeSummary.Content {
 		matchLines = append(matchLines, common.MatchLine{Index: i, Line: line, MatchNames: []string{}})
 	}
 
-	for _, m := range scopeConfig.Matches {
+	for i := 0; i < len(matchLines); i++ {
 
-		matchesIndex := m.IsMatch(matchLines)
-		if len(matchesIndex) > 0 {
-			for i := 0; i < len(matchLines); i++ {
-				ml := matchLines[i]
+		for _, m := range scopeConfig.Matches {
+			matchesIndex := m.IsMatch(matchLines)
+			if len(matchesIndex) > 0 {
 				for _, mi := range matchesIndex {
-					if ml.Index == mi {
+					if matchLines[i].Index == mi {
 						matchLines[i].MatchNames = append(matchLines[i].MatchNames, m.Name)
 					}
 				}
 			}
 		}
+
+		if len(matchLines[i].MatchNames) > 0 {
+			result = append(result, matchLines[i])
+		}
 	}
 
-	return matchLines
+	return result
 }
 
 func fileNameHash(p string) string {
@@ -409,90 +416,3 @@ func fileNameHash(p string) string {
 // 		}
 // 	}
 // }
-
-/*
-	for {
-		path := <-(*channel)
-
-		logger.Info().Msgf("\t-> Process file [%v]", path)
-
-		fileScopeSummary := common.FileScopeSummary{
-			FileName:   path,
-			Scopes:     []common.ScopeSummary{},
-			AllMatches: 0,
-		}
-
-		for _, s := range sc.Scopes {
-
-			rxStart := regexp2.MustCompile(s.StartQuery, regexOpt)
-			rxStop := regexp2.MustCompile(s.FinishQuery, regexOpt)
-
-			// read file line by line -->
-			file, err := os.Open(path)
-			if err != nil {
-				logger.Err(err).Send()
-			}
-			defer file.Close()
-
-			scanner := bufio.NewScanner(file)
-			index := 0
-			scopeIsOpen := false
-			var scopeSummary common.ScopeSummary
-			var scan bool = true
-			var line string
-			for scan {
-				scan = scanner.Scan()
-
-				if scan {
-					line = scanner.Text()
-					index++
-				}
-
-				if checkIfBeginScope(line, rxStart, scopeIsOpen) {
-
-					beginScope(&logger, path, line, index, s.Name, &scopeIsOpen, &scopeSummary)
-
-				} else if (checkIfBeginScope(line, rxStart, false)) && s.StartQueryCloseScope && scopeIsOpen {
-
-					logger.Info().Msg("End scope because of StartQueryCloseScope flag.")
-
-					endScope(&logger, scan, line, index, s.Name, &scopeIsOpen, &scopeSummary, &s, &fileScopeSummary)
-					beginScope(&logger, path, line, index, s.Name, &scopeIsOpen, &scopeSummary)
-
-				} else {
-					if checkIfEndScope(line, rxStop, scopeIsOpen) || (scopeIsOpen && !scan) {
-
-						endScope(&logger, scan, line, index, s.Name, &scopeIsOpen, &scopeSummary, &s, &fileScopeSummary)
-
-					} else {
-						if scopeIsOpen {
-
-							scopeSummary.Content = append(scopeSummary.Content, html.EscapeString(line))
-
-							logger.Trace().Msgf("|%v|", line)
-
-							tmp := fmt.Sprintf(formatContentHTML, index, notMatchedMark, line)
-							scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
-
-						}
-					}
-				}
-			}
-
-			if err := scanner.Err(); err != nil {
-				logger.Fatal().Err(err)
-			}
-			// <--
-		}
-
-		mutex.Lock()
-		scanSummary.ScanFiles++
-		if (fileScopeSummary.Scopes != nil) && (len(fileScopeSummary.Scopes) > 0) {
-			logger.Trace().Msgf("ADD FILE [%v] MATCHES TO SUMMARY", fileScopeSummary.FileName)
-			scanSummary.Summary = append(scanSummary.Summary, fileScopeSummary)
-		}
-		mutex.Unlock()
-
-		wgFile.Done()
-	}
-*/

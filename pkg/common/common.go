@@ -1,6 +1,7 @@
 package common
 
 import (
+	"bytes"
 	_ "embed"
 	"encoding/json"
 	"fmt"
@@ -283,6 +284,27 @@ func (s ScanSummary) WriteAsHTML(wr io.Writer) error {
 }
 
 // LogToHTML generate html summary file
+func (s ScanSummary) AsHTML() ([]byte, error) {
+
+	if s.Summary == nil {
+		return nil, fmt.Errorf("scan summary does not contains any summaries")
+	}
+
+	t, err := template.New("template").Parse(htmlPattern)
+	if err != nil {
+		return nil, fmt.Errorf("cannot read html template. %v", err.Error())
+	}
+
+	var buffer bytes.Buffer
+	err = t.Execute(&buffer, s)
+	if err != nil {
+		return nil, fmt.Errorf("cannot create html content. %v", err.Error())
+	}
+
+	return buffer.Bytes(), nil
+}
+
+// AsJSON generate json summary file
 func (s ScanSummary) AsJSON() ([]byte, error) {
 
 	if s.Summary == nil {
