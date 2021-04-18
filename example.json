@@ -1,6 +1,6 @@
 {
 	"folder": ".\\example",
-	"filter": "F1.txt",
+	"filter": "F*.txt",
 	"scopes": [
 		{
 			"name": "example-1",
@@ -11,7 +11,7 @@
 				{
 					"name": "match-command-with-integer",
 					"match": "^\\s*COMMAND\\=\\d+$",
-					"occurrence": "2"
+					"occurrence": "+"
 				},
 				{
 					"name": "match-parameter",

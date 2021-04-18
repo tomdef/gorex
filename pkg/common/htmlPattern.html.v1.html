@@ -59,7 +59,6 @@
 
 	.title-tbl tr {
 		border: 1px solid #dfdfdf;
-		
 	}
 
 	.title-tbl codeline {
@@ -84,59 +83,10 @@
 	}
 
 	.scope {
+		border-top: 2px dotted #AAAAAA;
 		margin-bottom: 15px;
 		margin-top: 15px;
 		margin-left: 15px;
-		padding: 10px;
-	}
-
-	.scope-content {
-		display: none;
-		overflow: hidden;
-		background-color: #f0f0f0;
-		border: 1px dotted #AAAAAA;
-		/* margin: 10px; */
-		font-family: "Courier New" !important;
-	}
-
-	.scope-details {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		justify-content: left;
-		align-content: center;
-		align-items: left;
-		text-align: center;
-		padding:1px 1px 1px 5px;
-		border: 1px solid #dfdfdf;
-		margin-bottom: 10px;
-	}
-	.scope-title {
-		justify-content: left;
-		align-content: center;
-		padding: 2px 4px 2px 4px;
-		margin-left: 10px;
-		margin-right: 10px;
-		margin-top: auto;
-		margin-bottom:auto;
-	}
-	.scope-value {
-		font-weight: bolder;
-		font-family: "Courier New" !important;
-		justify-content: left;
-		align-content: center;
-		margin-left: 10px;
-		margin-right: 10px;
-		margin-top: auto;
-		margin-bottom:auto;		
-	}
-
-	.ver-divider {
-		justify-content: left;
-		align-content: center;
-		margin-right: 2px;
-		margin-left: 5px;
-		border-left: 1px dotted #dfdfdf;
 	}
 
 	.summary-title {
@@ -152,8 +102,8 @@
 	.tbl {
 		border-collapse: collapse;
 		border: 1px solid #dfdfdf;
-		width: 100%;
-		table-layout: auto;
+		width: 90%;
+		table-layout: fixed;
 	}
 
 	.tbl caption {
@@ -186,27 +136,50 @@
 		font-family: "Courier New" !important;
 	}
 
+	.collapsible1 {
+		background-color: #777;
+		color: white;
+		cursor: pointer;
+		padding: 18px;
+		width: 100%;
+		border: none;
+		text-align: left;
+		outline: none;
+		font-size: 15px;
+	}
+
+	.active,
+	.collapsible:hover {
+		color: navy;
+		font-weight: bold;
+	}
+
+	.content {
+		display: none;
+		overflow: hidden;
+		background-color: #f0f0f0;
+		border: 1px dotted #AAAAAA;
+		margin: 10px;
+		font-family: "Courier New" !important;
+	}
+
 	.badge-scope {
-		background: #98FB98;
+		background: #E9967A;
 		font-size: 12px;
 		color: #000;
-		padding: 2px 4px 2px 4px;
-		margin-left: 0px;
-		margin-right: 0px;
-		margin-top: auto;
-		margin-bottom:auto;
-		border-radius: 3px;
+		padding: 4px 8px 4px 8px;
+		margin: 0px 0px 0px 0px;
+		border-radius: 5px;
 		border: 1px solid #4682B4;
-		display: inline;
 	}
 
 	.badge-match {
 		background: #A7C7E7;
 		font-size: 12px;
 		color: #000;
-		padding: 2px 4px 2px 4px;
-		margin:2px 0px 2px 0px;
-		border-radius: 3px;
+		padding: 4px 8px 4px 8px;
+		margin: -4px 2px -4px -4px;
+		border-radius: 5px;
 		border: 1px solid #4682B4;
 	}
 
@@ -214,33 +187,34 @@
 		background: transparent;
 		font-size: 12px;
 		color: #000;
-		padding: 2px;
-		margin:0px 0px 2px 0px;
-		border-radius: 3px;
+		padding: 4px 8px 4px 8px;
+		margin: 0px 0px 2px 0px;
+		/* margin: -4px 6px -4px -4px; */
+		border-radius: 5px;
 		border: 1px solid #4682B4;
-		display: inline-block;
 	}
 
 	.badge-match-name {
-		background: #A7C7E7;
+		/* background: #A7C7E7; */
 		font-size: 12px;
 		color: #000;
-		padding: 0px;
-		margin: 0px 0px 0px 2px;
-		border-radius: 3px 0px 0px 3px;
-		border: 1px solid #4682B4;
-		display: inline-block;
+		padding: 4px 8px 4px 8px;
+		margin: 0px 0px 0px -8px;
+		/* margin: 0px 0px 0px 0px; */
+		border-radius: 5px 0px 0px 5px;
+		/* border-left: 1px solid #4682B4; */
+		/* border-top: 1px solid #4682B4; */
+		/* border-bottom: 1px solid #4682B4; */
+		/*border-right: 1px dotted #4682B4; */
 	}
-
 	.badge-match-match {
 		background: transparent;
 		font-size: 13px;
 		font-family: "Courier New" !important;
 		color: #000;
 		padding: 6px 8px 3px 8px;
-		display: inline-block;
-	}
 
+	}
 	.badge-match-occur {
 		background: transparent;
 		font-size: 13px;
@@ -248,7 +222,6 @@
 		color: #000;
 		padding: 6px 4px 3px 4px;
 		border-left: 1px solid #4682B4;
-		display: inline-block;
 	}	
 
 	.button {
@@ -262,12 +235,6 @@
 		text-decoration: none;
 		display: inline-block;
 	}
-
-	.hide {
-		display: none;
-	}
-
-
 </style>
 
 <body>
@@ -280,39 +247,25 @@
 			<tbody>
 				<tr>
 					<td>Folder</td>
-					<td><strong>{{.Folder}}</strong></td>
+					<td>{{.Folder}}</td>
 				</tr>
 				<tr>
 					<td>Filter</td>
-					<td><strong>{{.Filter}}</strong></td>
+					<td>{{.Filter}}</td>
 				</tr>
 				<tr>
 					<td>Creation time</td>
-					<td><strong>{{.CreationTime}}</strong></td>
+					<td>{{.CreationTime}}</td>
 				</tr>
 				<tr>
 					<td>Duration time</td>
-					<td><strong>{{.DurationTime}}</strong></td>
+					<td>{{.DurationTime}}</td>
 				</tr>
-				<tr>
-					<td>Number of scanned file(s)</td>
-					<td><strong>{{.ScanFiles}}</strong></td>
-				</tr>
-				<tr>
-					<td>Found scope(s) in file(s)</td>
-					<td><strong>{{len .Summary}}</strong></td>
-				</tr>		
-				<tr>
-					<td>Scopes configuration</td>
-					<td><button id='scopes' class="button" onclick="ShowHide('table-scope-config','scopes')">Show</button></td>
-				</tr>		
 			</tbody>
 		</table>
 		<p />
-		
-		<div id="table-scope-config" class="hide">
 		<table class="title-tbl">
-			<caption>&#11208; Scopes configuration</caption>
+			<caption>&#11208; Scopes configuration <button id='scopes'>Show</button></caption>
 			<tbody>
 				{{range .Scopes}}
 				<tr>
@@ -328,7 +281,7 @@
 					<td colspan="6">
 						{{range .Matches}}
 							<div class="badge-match-full">
-								<span class="badge-match">{{.Name}}</span>
+								<span class="badge-match-name">{{.Name}}</span>
 								<span class="badge-match-match">{{.Match}}</span>
 								<span class="badge-match-occur">{{.Occurrence}}</span>
 							</div>
@@ -338,11 +291,19 @@
 				{{end}}
 			</tbody>
 		</table>
-	    </div>
 		<p />
 		<table class="title-tbl">
-			<caption>&#11208; Found in file(s):</caption>
+			<caption>&#11208; Summary</caption>
 			<tbody>
+				<tr>
+					<td>Scan file(s)</td>
+					<td><b>{{.ScanFiles}}</b> </td>
+					<td colspan="5" rowspan="2" />
+				</tr>
+				<tr>
+					<td>Found in file(s)</td>
+					<td><b>{{len .Summary}}</b> </td>
+				</tr>
 				{{range .Summary}}
 				<tr>
 					<td>File name</td>
@@ -368,27 +329,24 @@
 					top</a>]</p>
 			{{range .Scopes}}
 			<div class="scope">
-				<div class="scope-details">
-					<div class="badge-scope">{{.Name}}</div>
-					<div class="ver-divider"></div>
-					<div class="scope-title">Scope range</div>
-					<div class="scope-value">[{{.Started}}...{{.Finished}}]</div>
-					<div class="ver-divider"></div>
-					<button id='content-btn-{{.Id}}' class="button" onclick="ShowHide('content-{{.Id}}','content-btn-{{.Id}}')">Show</button>
-				</div>			
-				<div class="scope-content" id="content-{{.Id}}">
+				<p>Scope name <b>{{.Name}}</b></p>
+				{{if .Started}}
+				<p>Scope line range: [<b>{{.Started}}</b>..<b>{{.Finished}}</b>]</p>
+				<p type="button" class="collapsible"><span style="cursor:pointer">Scope content
+						[show/hide]:</span></button>
+				<div class="content">
 					{{range $element := .ContentAsHTML}}
 					{{$element}}<br />
 					{{end}}
 				</div>
-
+				{{end}}
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
 						{{range .Matches}}
 						<tr>
-							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">{{.Index}}</td>
-							<td style="font-family: 'Courier New', Courier, monospace;white-space: pre;">{{.Line}}</td>
+							<td style="width:100px;">{{.Index}}</td>
+							<td style="font-family: 'Courier New', Courier, monospace;">{{.Line}}</td>
 							<td>
 								{{range $match := .MatchNames}}
 								<span class="badge-match">{{$match}}</span>
@@ -420,18 +378,13 @@
 		// 	});
 		// }
 
-		function ShowHide(name, button) {
+		function ShowHide(name) {
  			var x = document.getElementById(name);
-			var text = document.getElementById(button).firstChild;
-			console.log(x.style.display);
-  			if (x.style.display !== "block") {
+  			if (x.style.display === "none") {
     			x.style.display = "block";
   			} else {
     			x.style.display = "none";
   			}
-			console.log(x.style.display);
-			var text = document.getElementById(button).firstChild;
-   			text.data = text.data == "Show" ? "Hide" : "Show";
 		}
 
 	</script>

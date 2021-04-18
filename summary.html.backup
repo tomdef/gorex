@@ -288,11 +288,11 @@
 				</tr>
 				<tr>
 					<td>Creation time</td>
-					<td><strong>2021-04-18 19:21:16.4068688 &#43;0200 CEST m=&#43;0.026825601</strong></td>
+					<td><strong>2021-04-18 19:20:05.0421306 &#43;0200 CEST m=&#43;0.025027601</strong></td>
 				</tr>
 				<tr>
 					<td>Duration time</td>
-					<td><strong>37.3226ms</strong></td>
+					<td><strong>29.3863ms</strong></td>
 				</tr>
 				<tr>
 					<td>Number of scanned file(s)</td>
@@ -391,14 +391,16 @@
 			
 			<div class="scope">
 				<div class="scope-details">
+					<div class="badge-scope">137f9b4b</div>
+					<div class="ver-divider"></div>
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[2...6]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-65287053' class="button" onclick="ShowHide('content-65287053','content-btn-65287053')">Show</button>
+					<button id='content-btn-137f9b4b' class="button" onclick="ShowHide('content-137f9b4b','content-btn-137f9b4b')">Show</button>
 				</div>			
-				<div class="scope-content" id="content-65287053">
+				<div class="scope-content" id="content-137f9b4b">
 					
 					[00002|&amp;gt;][BEGIN]<br />
 					
@@ -462,14 +464,16 @@
 			
 			<div class="scope">
 				<div class="scope-details">
+					<div class="badge-scope">99d516d2</div>
+					<div class="ver-divider"></div>
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[4...9]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-beea5df2' class="button" onclick="ShowHide('content-beea5df2','content-btn-beea5df2')">Show</button>
+					<button id='content-btn-99d516d2' class="button" onclick="ShowHide('content-99d516d2','content-btn-99d516d2')">Show</button>
 				</div>			
-				<div class="scope-content" id="content-beea5df2">
+				<div class="scope-content" id="content-99d516d2">
 					
 					[00004|&amp;gt;][BEGIN]<br />
 					
@@ -537,14 +541,16 @@
 			
 			<div class="scope">
 				<div class="scope-details">
+					<div class="badge-scope">3900511c</div>
+					<div class="ver-divider"></div>
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[12...22]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-ba321e97' class="button" onclick="ShowHide('content-ba321e97','content-btn-ba321e97')">Show</button>
+					<button id='content-btn-3900511c' class="button" onclick="ShowHide('content-3900511c','content-btn-3900511c')">Show</button>
 				</div>			
-				<div class="scope-content" id="content-ba321e97">
+				<div class="scope-content" id="content-3900511c">
 					
 					[00012|&amp;gt;][BEGIN]<br />
 					
@@ -634,14 +640,16 @@
 			
 			<div class="scope">
 				<div class="scope-details">
+					<div class="badge-scope">001bcffc</div>
+					<div class="ver-divider"></div>
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[25...31]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-c17f4eb7' class="button" onclick="ShowHide('content-c17f4eb7','content-btn-c17f4eb7')">Show</button>
+					<button id='content-btn-001bcffc' class="button" onclick="ShowHide('content-001bcffc','content-btn-001bcffc')">Show</button>
 				</div>			
-				<div class="scope-content" id="content-c17f4eb7">
+				<div class="scope-content" id="content-001bcffc">
 					
 					[00025|&amp;gt;][BEGIN]<br />
 					
@@ -691,14 +699,16 @@
 			
 			<div class="scope">
 				<div class="scope-details">
+					<div class="badge-scope">f21d7694</div>
+					<div class="ver-divider"></div>
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[34...44]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-bafff350' class="button" onclick="ShowHide('content-bafff350','content-btn-bafff350')">Show</button>
+					<button id='content-btn-f21d7694' class="button" onclick="ShowHide('content-f21d7694','content-btn-f21d7694')">Show</button>
 				</div>			
-				<div class="scope-content" id="content-bafff350">
+				<div class="scope-content" id="content-f21d7694">
 					
 					[00034|&amp;gt;][BEGIN]<br />
 					

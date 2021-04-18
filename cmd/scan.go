@@ -96,6 +96,7 @@ func scan(input string, outputhtml string, outputjson string, trace bool, show b
 	var scanSummary common.ScanSummary = common.ScanSummary{
 		Folder:       folder,
 		Filter:       filter,
+		Scopes:       scanConfig.Scopes,
 		CreationTime: time.Now(),
 		DurationTime: 0,
 		Summary:      nil,
@@ -144,6 +145,8 @@ func scan(input string, outputhtml string, outputjson string, trace bool, show b
 	})
 
 	wgFile.Wait()
+	elapsed := time.Since(durationStart)
+	scanSummary.DurationTime = elapsed
 
 	// save
 
@@ -160,8 +163,13 @@ func scan(input string, outputhtml string, outputjson string, trace bool, show b
 				info, err := os.Stat(outputhtml)
 				if !os.IsNotExist(err) {
 					newName := outputhtml + ".backup"
+					if err = os.Remove(newName); err != nil {
+						logger.Info().Msgf("\tRemove old file [%v] ends with error : [%v]", newName, err.Error())
+					}
 					logger.Info().Msgf("\tRename previous file [%v] to [%v]", info.Name(), newName)
-					os.Rename(outputhtml, newName)
+					if err = os.Rename(outputhtml, newName); err != nil {
+						logger.Info().Msgf("\tRename file [%v] ends with error : [%v]", info.Name(), err.Error())
+					}
 				}
 
 				logger.Info().Msgf("\tSave to HTML format file [%v]", outputhtml)
@@ -179,8 +187,13 @@ func scan(input string, outputhtml string, outputjson string, trace bool, show b
 				info, err := os.Stat(outputjson)
 				if !os.IsNotExist(err) {
 					newName := outputjson + ".backup"
+					if err = os.Remove(newName); err != nil {
+						logger.Info().Msgf("\tRemove old file [%v] ends with error : [%v]", newName, err.Error())
+					}
 					logger.Info().Msgf("\tRename previous file [%v] to [%v]", info.Name(), newName)
-					os.Rename(outputjson, newName)
+					if err = os.Rename(outputjson, newName); err != nil {
+						logger.Info().Msgf("\tRename file [%v] ends with error : [%v]", info.Name(), err.Error())
+					}
 				}
 
 				logger.Info().Msgf("\tSave to JSON format file [%v]", outputjson)
@@ -192,7 +205,6 @@ func scan(input string, outputhtml string, outputjson string, trace bool, show b
 	}
 
 	// <--
-	elapsed := time.Since(durationStart)
 	logger.Info().Msgf("FINISH SCAN after %s", elapsed)
 
 	return err
@@ -311,6 +323,7 @@ func beginScope(logger *zerolog.Logger, fileName string, line string, index int,
 		Matches:  nil,
 		Content:  nil,
 	}
+	scopeSummary.ResolveId()
 	scopeSummary.Content = append(scopeSummary.Content, line)
 	tmp := fmt.Sprintf(formatContentHTML, index, startScopeMark, line)
 	scopeSummary.ContentAsHTML = append(scopeSummary.ContentAsHTML, html.EscapeString(tmp))
@@ -372,7 +385,7 @@ func findMatchesInScope(logger zerolog.Logger, scopeConfig *common.ScopeConfig, 
 	var result []common.MatchLine
 
 	for i, line := range scopeSummary.Content {
-		matchLines = append(matchLines, common.MatchLine{Index: i, Line: line, MatchNames: []string{}})
+		matchLines = append(matchLines, common.MatchLine{Index: i + scopeSummary.Started, Line: line, MatchNames: []string{}})
 	}
 
 	for i := 0; i < len(matchLines); i++ {

@@ -2,9 +2,10 @@
 //
 // *** should match 
 BEGIN
-    COMMAND=11
-    COMMAND=22
+    COMMAND=111
+    COMMAND=222
     PARAMETER(123)
+    COMMAND=333
 END
 //
 // *** should not match
@@ -12,7 +13,12 @@ BEGIN
     // this is a comment inside scope
     // this is a comment inside scope
     COMMAND=AAA
+    COMMAND=AAA
+    COMMAND=1
     PARAMETER(123)
+    PARAMETER(999)
+    COMMAND=2
+    COMMAND=3
 END
 //
 // *** should not match
@@ -29,6 +35,11 @@ BEGIN
     // this is a comment inside scope
     COMMAND=111
     COMMAND=222
+    COMMAND=333
+    COMMAND=444
     // this is a comment inside scope
+    COMMAND=555
+    PARAMETER(990)
+    COMMAND=666
 END
 //

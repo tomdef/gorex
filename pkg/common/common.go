@@ -2,6 +2,7 @@ package common
 
 import (
 	"bytes"
+	"crypto/rand"
 	_ "embed"
 	"encoding/json"
 	"fmt"
@@ -145,13 +146,6 @@ type ScanConfig struct {
 // -----------------------------------------------------------------------------
 // Scan summary structs :
 
-// FileScopeSummary provides...
-type FileScopeSummary struct {
-	FileName   string         `json:"fileName" xml:"fileName,attr"`
-	Scopes     []ScopeSummary `json:"scopes" xml:"scopes"`
-	AllMatches int
-}
-
 // MatchLine provides...
 type MatchLine struct {
 	Line       string   `json:"line" xml:"line,attr"`
@@ -161,6 +155,7 @@ type MatchLine struct {
 
 // ScopeSummary provides...
 type ScopeSummary struct {
+	Id            string   `json:"id" xml:"id,attr"`
 	Name          string   `json:"name" xml:"name,attr"`
 	FileName      string   `json:"fileName" xml:"fileName,attr"`
 	Started       int      `json:"started" xml:"started,attr"`
@@ -170,10 +165,18 @@ type ScopeSummary struct {
 	Matches       []MatchLine `json:"matches" xml:"matches"`
 }
 
+// FileScopeSummary provides...
+type FileScopeSummary struct {
+	FileName   string         `json:"fileName" xml:"fileName,attr"`
+	Scopes     []ScopeSummary `json:"scopes" xml:"scopes"`
+	AllMatches int
+}
+
 // ScanSummary provides...
 type ScanSummary struct {
 	Folder       string
 	Filter       string
+	Scopes       []ScopeConfig
 	CreationTime time.Time
 	DurationTime time.Duration
 	Summary      []FileScopeSummary
@@ -189,6 +192,19 @@ type ScopeSummaryWithConfig struct {
 // -----------------------------------------------------------------------------
 // Extensions
 // -----------------------------------------------------------------------------
+
+func (s *ScopeSummary) ResolveId() error {
+	guid := make([]byte, 16)
+	n, err := io.ReadFull(rand.Reader, guid)
+	if n != len(guid) || err != nil {
+		return err
+	}
+	guid[8] = guid[8]&^0xc0 | 0x80
+	guid[6] = guid[6]&^0xf0 | 0x40
+
+	s.Id = fmt.Sprintf("%x", guid[0:4])
+	return nil
+}
 
 //Read ScopeConfiguration read ScanConfig from content
 func ReadScanConfiguration(content []byte) (ScanConfig, error) {
