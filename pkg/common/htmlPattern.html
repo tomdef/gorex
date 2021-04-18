@@ -59,7 +59,7 @@
 
 	.title-tbl tr {
 		border: 1px solid #dfdfdf;
-		
+
 	}
 
 	.title-tbl codeline {
@@ -90,13 +90,16 @@
 		padding: 10px;
 	}
 
-	.scope-content {
+	.scope-code {
 		display: none;
-		overflow: hidden;
 		background-color: #f0f0f0;
 		border: 1px dotted #AAAAAA;
-		/* margin: 10px; */
+		color: rgb(94, 94, 94);
 		font-family: "Courier New" !important;
+		white-space: pre;
+		padding: 10px;
+		text-align: left;
+		word-wrap: break-word;
 	}
 
 	.scope-details {
@@ -107,10 +110,11 @@
 		align-content: center;
 		align-items: left;
 		text-align: center;
-		padding:1px 1px 1px 5px;
+		padding: 1px 1px 1px 5px;
 		border: 1px solid #dfdfdf;
 		margin-bottom: 10px;
 	}
+
 	.scope-title {
 		justify-content: left;
 		align-content: center;
@@ -118,8 +122,9 @@
 		margin-left: 10px;
 		margin-right: 10px;
 		margin-top: auto;
-		margin-bottom:auto;
+		margin-bottom: auto;
 	}
+
 	.scope-value {
 		font-weight: bolder;
 		font-family: "Courier New" !important;
@@ -128,7 +133,7 @@
 		margin-left: 10px;
 		margin-right: 10px;
 		margin-top: auto;
-		margin-bottom:auto;		
+		margin-bottom: auto;
 	}
 
 	.ver-divider {
@@ -182,7 +187,7 @@
 	/* OTHER */
 
 	.codeline {
-		font-weight:bold;
+		font-weight: bold;
 		font-family: "Courier New" !important;
 	}
 
@@ -194,7 +199,7 @@
 		margin-left: 0px;
 		margin-right: 0px;
 		margin-top: auto;
-		margin-bottom:auto;
+		margin-bottom: auto;
 		border-radius: 3px;
 		border: 1px solid #4682B4;
 		display: inline;
@@ -205,7 +210,7 @@
 		font-size: 12px;
 		color: #000;
 		padding: 2px 4px 2px 4px;
-		margin:2px 0px 2px 0px;
+		margin: 2px 0px 2px 0px;
 		border-radius: 3px;
 		border: 1px solid #4682B4;
 	}
@@ -215,7 +220,7 @@
 		font-size: 12px;
 		color: #000;
 		padding: 2px;
-		margin:0px 0px 2px 0px;
+		margin: 0px 0px 2px 0px;
 		border-radius: 3px;
 		border: 1px solid #4682B4;
 		display: inline-block;
@@ -249,7 +254,7 @@
 		padding: 6px 4px 3px 4px;
 		border-left: 1px solid #4682B4;
 		display: inline-block;
-	}	
+	}
 
 	.button {
 		color: white;
@@ -266,14 +271,13 @@
 	.hide {
 		display: none;
 	}
-
-
 </style>
 
 <body>
 	<div class="title shadowbox" id="title">
 		<div class="poweredby">&#9829; powered by gorex &#9829;&nbsp;
-			<a href="https://github.com/tomdef/gorex">[https://github.com/tomdef/gorex]</a></div>
+			<a href="https://github.com/tomdef/gorex">[https://github.com/tomdef/gorex]</a>
+		</div>
 		<h1>Scan summary</h1>
 		<table class="title-tbl">
 			<caption>&#11208; Parameters</caption>
@@ -301,44 +305,53 @@
 				<tr>
 					<td>Found scope(s) in file(s)</td>
 					<td><strong>{{len .Summary}}</strong></td>
-				</tr>		
+				</tr>
 				<tr>
 					<td>Scopes configuration</td>
-					<td><button id='scopes' class="button" onclick="ShowHide('table-scope-config','scopes')">Show</button></td>
-				</tr>		
+					<td><button id='scopes' class="button"
+							onclick="ShowHide('table-scope-config','scopes')">Show</button></td>
+				</tr>
 			</tbody>
 		</table>
 		<p />
-		
+
 		<div id="table-scope-config" class="hide">
-		<table class="title-tbl">
-			<caption>&#11208; Scopes configuration</caption>
-			<tbody>
-				{{range .Scopes}}
-				<tr>
-					<td rowspan="2"><div class="badge-scope">{{.Name}}</div></td>
-					<td>Begin</td>
-					<td><div class="codeline">{{.Begin}}</div></td>
-					<td>End</td>
-					<td><div class="codeline">{{.End}}</div></td>
-					<td>Autoclose</td>
-					<td><div class="codeline">{{.AutoClose}}</div></td>
-				</tr>
-				<tr>
-					<td colspan="6">
-						{{range .Matches}}
+			<table class="title-tbl">
+				<caption>&#11208; Scopes configuration</caption>
+				<tbody>
+					{{range .Scopes}}
+					<tr>
+						<td rowspan="2">
+							<div class="badge-scope">{{.Name}}</div>
+						</td>
+						<td>Begin</td>
+						<td>
+							<div class="codeline">{{.Begin}}</div>
+						</td>
+						<td>End</td>
+						<td>
+							<div class="codeline">{{.End}}</div>
+						</td>
+						<td>Autoclose</td>
+						<td>
+							<div class="codeline">{{.AutoClose}}</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							{{range .Matches}}
 							<div class="badge-match-full">
 								<span class="badge-match">{{.Name}}</span>
 								<span class="badge-match-match">{{.Match}}</span>
 								<span class="badge-match-occur">{{.Occurrence}}</span>
 							</div>
-						{{end}}
-					</td>
-				</tr>
-				{{end}}
-			</tbody>
-		</table>
-	    </div>
+							{{end}}
+						</td>
+					</tr>
+					{{end}}
+				</tbody>
+			</table>
+		</div>
 		<p />
 		<table class="title-tbl">
 			<caption>&#11208; Found in file(s):</caption>
@@ -374,14 +387,10 @@
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[{{.Started}}...{{.Finished}}]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-{{.Id}}' class="button" onclick="ShowHide('content-{{.Id}}','content-btn-{{.Id}}')">Show</button>
-				</div>			
-				<div class="scope-content" id="content-{{.Id}}">
-					{{range $element := .ContentAsHTML}}
-					{{$element}}<br />
-					{{end}}
-				</div>
-
+					<button id='content-btn-{{.Id}}' class="button"
+						onclick="ShowHide('content-{{.Id}}','content-btn-{{.Id}}')">Show</button>
+				</div>				
+				<div class="scope-code" id="content-{{.Id}}">{{range $element := .Content}}{{$element}}</br>{{end}}</div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -421,17 +430,17 @@
 		// }
 
 		function ShowHide(name, button) {
- 			var x = document.getElementById(name);
+			var x = document.getElementById(name);
 			var text = document.getElementById(button).firstChild;
 			console.log(x.style.display);
-  			if (x.style.display !== "block") {
-    			x.style.display = "block";
-  			} else {
-    			x.style.display = "none";
-  			}
+			if (x.style.display !== "block") {
+				x.style.display = "block";
+			} else {
+				x.style.display = "none";
+			}
 			console.log(x.style.display);
 			var text = document.getElementById(button).firstChild;
-   			text.data = text.data == "Show" ? "Hide" : "Show";
+			text.data = text.data == "Show" ? "Hide" : "Show";
 		}
 
 	</script>

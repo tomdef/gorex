@@ -29,14 +29,14 @@
    ]
   }
  ],
- "CreationTime": "2021-04-18T19:21:16.4068688+02:00",
- "DurationTime": 37322600,
+ "CreationTime": "2021-04-18T21:58:58.6760846+02:00",
+ "DurationTime": 36879300,
  "Summary": [
   {
    "fileName": "D:\\Projects\\Src\\GoRex\\example\\F1.txt",
    "scopes": [
     {
-     "id": "65287053",
+     "id": "d8069f1c",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F1.txt",
      "started": 2,
@@ -47,13 +47,6 @@
       "    COMMAND=22",
       "    PARAMETER(123)",
       "END"
-     ],
-     "ContentAsHTML": [
-      "[00002|\u0026gt;][BEGIN]",
-      "[00003| ][    COMMAND=11]",
-      "[00004| ][    COMMAND=22]",
-      "[00005| ][    PARAMETER(123)]",
-      "[00006|\u0026lt;][END]"
      ],
      "matches": [
       {
@@ -87,7 +80,7 @@
    "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
    "scopes": [
     {
-     "id": "beea5df2",
+     "id": "d7a7bb82",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
      "started": 4,
@@ -99,14 +92,6 @@
       "    PARAMETER(123)",
       "    COMMAND=333",
       "END"
-     ],
-     "ContentAsHTML": [
-      "[00004|\u0026gt;][BEGIN]",
-      "[00005| ][    COMMAND=111]",
-      "[00006| ][    COMMAND=222]",
-      "[00007| ][    PARAMETER(123)]",
-      "[00008| ][    COMMAND=333]",
-      "[00009|\u0026lt;][END]"
      ],
      "matches": [
       {
@@ -141,7 +126,7 @@
      ]
     },
     {
-     "id": "ba321e97",
+     "id": "ceb3c2dc",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
      "started": 12,
@@ -158,19 +143,6 @@
       "    COMMAND=2",
       "    COMMAND=3",
       "END"
-     ],
-     "ContentAsHTML": [
-      "[00012|\u0026gt;][BEGIN]",
-      "[00013| ][    // this is a comment inside scope]",
-      "[00014| ][    // this is a comment inside scope]",
-      "[00015| ][    COMMAND=AAA]",
-      "[00016| ][    COMMAND=AAA]",
-      "[00017| ][    COMMAND=1]",
-      "[00018| ][    PARAMETER(123)]",
-      "[00019| ][    PARAMETER(999)]",
-      "[00020| ][    COMMAND=2]",
-      "[00021| ][    COMMAND=3]",
-      "[00022|\u0026lt;][END]"
      ],
      "matches": [
       {
@@ -213,7 +185,7 @@
      ]
     },
     {
-     "id": "c17f4eb7",
+     "id": "2feaa170",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
      "started": 25,
@@ -226,15 +198,6 @@
       "    // this is a comment inside scope",
       "    PARAMETER(123)",
       "END"
-     ],
-     "ContentAsHTML": [
-      "[00025|\u0026gt;][BEGIN]",
-      "[00026| ][    // this is a comment inside scope]",
-      "[00027| ][    COMMAND=888]",
-      "[00028| ][    COMMAND=AAA]",
-      "[00029| ][    // this is a comment inside scope]",
-      "[00030| ][    PARAMETER(123)]",
-      "[00031|\u0026lt;][END]"
      ],
      "matches": [
       {
@@ -255,7 +218,7 @@
      ]
     },
     {
-     "id": "bafff350",
+     "id": "024b3ca2",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
      "started": 34,
@@ -272,19 +235,6 @@
       "    PARAMETER(990)",
       "    COMMAND=666",
       "END"
-     ],
-     "ContentAsHTML": [
-      "[00034|\u0026gt;][BEGIN]",
-      "[00035| ][    // this is a comment inside scope]",
-      "[00036| ][    COMMAND=111]",
-      "[00037| ][    COMMAND=222]",
-      "[00038| ][    COMMAND=333]",
-      "[00039| ][    COMMAND=444]",
-      "[00040| ][    // this is a comment inside scope]",
-      "[00041| ][    COMMAND=555]",
-      "[00042| ][    PARAMETER(990)]",
-      "[00043| ][    COMMAND=666]",
-      "[00044|\u0026lt;][END]"
      ],
      "matches": [
       {

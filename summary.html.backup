@@ -59,7 +59,7 @@
 
 	.title-tbl tr {
 		border: 1px solid #dfdfdf;
-		
+
 	}
 
 	.title-tbl codeline {
@@ -90,13 +90,16 @@
 		padding: 10px;
 	}
 
-	.scope-content {
+	.scope-code {
 		display: none;
-		overflow: hidden;
 		background-color: #f0f0f0;
 		border: 1px dotted #AAAAAA;
-		 
-		font-family: "Courier New" !important;
+		color: rgb(94, 94, 94);
+		font-family: monospace !important;
+		white-space: pre;
+		padding: 10px;
+		text-align: left;
+		word-wrap: break-word;
 	}
 
 	.scope-details {
@@ -107,10 +110,11 @@
 		align-content: center;
 		align-items: left;
 		text-align: center;
-		padding:1px 1px 1px 5px;
+		padding: 1px 1px 1px 5px;
 		border: 1px solid #dfdfdf;
 		margin-bottom: 10px;
 	}
+
 	.scope-title {
 		justify-content: left;
 		align-content: center;
@@ -118,8 +122,9 @@
 		margin-left: 10px;
 		margin-right: 10px;
 		margin-top: auto;
-		margin-bottom:auto;
+		margin-bottom: auto;
 	}
+
 	.scope-value {
 		font-weight: bolder;
 		font-family: "Courier New" !important;
@@ -128,7 +133,7 @@
 		margin-left: 10px;
 		margin-right: 10px;
 		margin-top: auto;
-		margin-bottom:auto;		
+		margin-bottom: auto;
 	}
 
 	.ver-divider {
@@ -182,7 +187,7 @@
 	 
 
 	.codeline {
-		font-weight:bold;
+		font-weight: bold;
 		font-family: "Courier New" !important;
 	}
 
@@ -194,7 +199,7 @@
 		margin-left: 0px;
 		margin-right: 0px;
 		margin-top: auto;
-		margin-bottom:auto;
+		margin-bottom: auto;
 		border-radius: 3px;
 		border: 1px solid #4682B4;
 		display: inline;
@@ -205,7 +210,7 @@
 		font-size: 12px;
 		color: #000;
 		padding: 2px 4px 2px 4px;
-		margin:2px 0px 2px 0px;
+		margin: 2px 0px 2px 0px;
 		border-radius: 3px;
 		border: 1px solid #4682B4;
 	}
@@ -215,7 +220,7 @@
 		font-size: 12px;
 		color: #000;
 		padding: 2px;
-		margin:0px 0px 2px 0px;
+		margin: 0px 0px 2px 0px;
 		border-radius: 3px;
 		border: 1px solid #4682B4;
 		display: inline-block;
@@ -249,7 +254,7 @@
 		padding: 6px 4px 3px 4px;
 		border-left: 1px solid #4682B4;
 		display: inline-block;
-	}	
+	}
 
 	.button {
 		color: white;
@@ -266,14 +271,13 @@
 	.hide {
 		display: none;
 	}
-
-
 </style>
 
 <body>
 	<div class="title shadowbox" id="title">
 		<div class="poweredby">&#9829; powered by gorex &#9829;&nbsp;
-			<a href="https://github.com/tomdef/gorex">[https://github.com/tomdef/gorex]</a></div>
+			<a href="https://github.com/tomdef/gorex">[https://github.com/tomdef/gorex]</a>
+		</div>
 		<h1>Scan summary</h1>
 		<table class="title-tbl">
 			<caption>&#11208; Parameters</caption>
@@ -288,11 +292,11 @@
 				</tr>
 				<tr>
 					<td>Creation time</td>
-					<td><strong>2021-04-18 19:20:05.0421306 &#43;0200 CEST m=&#43;0.025027601</strong></td>
+					<td><strong>2021-04-18 21:58:35.9536113 &#43;0200 CEST m=&#43;0.026876601</strong></td>
 				</tr>
 				<tr>
 					<td>Duration time</td>
-					<td><strong>29.3863ms</strong></td>
+					<td><strong>33.3922ms</strong></td>
 				</tr>
 				<tr>
 					<td>Number of scanned file(s)</td>
@@ -301,56 +305,65 @@
 				<tr>
 					<td>Found scope(s) in file(s)</td>
 					<td><strong>2</strong></td>
-				</tr>		
+				</tr>
 				<tr>
 					<td>Scopes configuration</td>
-					<td><button id='scopes' class="button" onclick="ShowHide('table-scope-config','scopes')">Show</button></td>
-				</tr>		
+					<td><button id='scopes' class="button"
+							onclick="ShowHide('table-scope-config','scopes')">Show</button></td>
+				</tr>
 			</tbody>
 		</table>
 		<p />
-		
+
 		<div id="table-scope-config" class="hide">
-		<table class="title-tbl">
-			<caption>&#11208; Scopes configuration</caption>
-			<tbody>
-				
-				<tr>
-					<td rowspan="2"><div class="badge-scope">example-1</div></td>
-					<td>Begin</td>
-					<td><div class="codeline">^\W*BEGIN$</div></td>
-					<td>End</td>
-					<td><div class="codeline">^\W*END$</div></td>
-					<td>Autoclose</td>
-					<td><div class="codeline">true</div></td>
-				</tr>
-				<tr>
-					<td colspan="6">
-						
+			<table class="title-tbl">
+				<caption>&#11208; Scopes configuration</caption>
+				<tbody>
+					
+					<tr>
+						<td rowspan="2">
+							<div class="badge-scope">example-1</div>
+						</td>
+						<td>Begin</td>
+						<td>
+							<div class="codeline">^\W*BEGIN$</div>
+						</td>
+						<td>End</td>
+						<td>
+							<div class="codeline">^\W*END$</div>
+						</td>
+						<td>Autoclose</td>
+						<td>
+							<div class="codeline">true</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							
 							<div class="badge-match-full">
 								<span class="badge-match">match-command-with-integer</span>
 								<span class="badge-match-match">^\s*COMMAND\=\d&#43;$</span>
 								<span class="badge-match-occur">&#43;</span>
 							</div>
-						
+							
 							<div class="badge-match-full">
 								<span class="badge-match">match-parameter</span>
 								<span class="badge-match-match">^\s*PARAMETER\(\d&#43;\)$</span>
 								<span class="badge-match-occur">&#43;</span>
 							</div>
-						
+							
 							<div class="badge-match-full">
 								<span class="badge-match">match-close-bracket</span>
 								<span class="badge-match-match">^.*\)$</span>
 								<span class="badge-match-occur">&#43;</span>
 							</div>
-						
-					</td>
-				</tr>
-				
-			</tbody>
-		</table>
-	    </div>
+							
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
 		<p />
 		<table class="title-tbl">
 			<caption>&#11208; Found in file(s):</caption>
@@ -391,29 +404,15 @@
 			
 			<div class="scope">
 				<div class="scope-details">
-					<div class="badge-scope">137f9b4b</div>
-					<div class="ver-divider"></div>
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[2...6]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-137f9b4b' class="button" onclick="ShowHide('content-137f9b4b','content-btn-137f9b4b')">Show</button>
-				</div>			
-				<div class="scope-content" id="content-137f9b4b">
-					
-					[00002|&amp;gt;][BEGIN]<br />
-					
-					[00003| ][    COMMAND=11]<br />
-					
-					[00004| ][    COMMAND=22]<br />
-					
-					[00005| ][    PARAMETER(123)]<br />
-					
-					[00006|&amp;lt;][END]<br />
-					
-				</div>
-
+					<button id='content-btn-ae335024' class="button"
+						onclick="ShowHide('content-ae335024','content-btn-ae335024')">Show</button>
+				</div>				
+				<div class="scope-code" id="content-ae335024">BEGIN</br>    COMMAND=11</br>    COMMAND=22</br>    PARAMETER(123)</br>END</br></div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -464,31 +463,15 @@
 			
 			<div class="scope">
 				<div class="scope-details">
-					<div class="badge-scope">99d516d2</div>
-					<div class="ver-divider"></div>
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[4...9]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-99d516d2' class="button" onclick="ShowHide('content-99d516d2','content-btn-99d516d2')">Show</button>
-				</div>			
-				<div class="scope-content" id="content-99d516d2">
-					
-					[00004|&amp;gt;][BEGIN]<br />
-					
-					[00005| ][    COMMAND=111]<br />
-					
-					[00006| ][    COMMAND=222]<br />
-					
-					[00007| ][    PARAMETER(123)]<br />
-					
-					[00008| ][    COMMAND=333]<br />
-					
-					[00009|&amp;lt;][END]<br />
-					
-				</div>
-
+					<button id='content-btn-da22ffc4' class="button"
+						onclick="ShowHide('content-da22ffc4','content-btn-da22ffc4')">Show</button>
+				</div>				
+				<div class="scope-code" id="content-da22ffc4">BEGIN</br>    COMMAND=111</br>    COMMAND=222</br>    PARAMETER(123)</br>    COMMAND=333</br>END</br></div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -541,41 +524,15 @@
 			
 			<div class="scope">
 				<div class="scope-details">
-					<div class="badge-scope">3900511c</div>
-					<div class="ver-divider"></div>
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[12...22]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-3900511c' class="button" onclick="ShowHide('content-3900511c','content-btn-3900511c')">Show</button>
-				</div>			
-				<div class="scope-content" id="content-3900511c">
-					
-					[00012|&amp;gt;][BEGIN]<br />
-					
-					[00013| ][    // this is a comment inside scope]<br />
-					
-					[00014| ][    // this is a comment inside scope]<br />
-					
-					[00015| ][    COMMAND=AAA]<br />
-					
-					[00016| ][    COMMAND=AAA]<br />
-					
-					[00017| ][    COMMAND=1]<br />
-					
-					[00018| ][    PARAMETER(123)]<br />
-					
-					[00019| ][    PARAMETER(999)]<br />
-					
-					[00020| ][    COMMAND=2]<br />
-					
-					[00021| ][    COMMAND=3]<br />
-					
-					[00022|&amp;lt;][END]<br />
-					
-				</div>
-
+					<button id='content-btn-aad3b609' class="button"
+						onclick="ShowHide('content-aad3b609','content-btn-aad3b609')">Show</button>
+				</div>				
+				<div class="scope-code" id="content-aad3b609">BEGIN</br>    // this is a comment inside scope</br>    // this is a comment inside scope</br>    COMMAND=AAA</br>    COMMAND=AAA</br>    COMMAND=1</br>    PARAMETER(123)</br>    PARAMETER(999)</br>    COMMAND=2</br>    COMMAND=3</br>END</br></div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -640,33 +597,15 @@
 			
 			<div class="scope">
 				<div class="scope-details">
-					<div class="badge-scope">001bcffc</div>
-					<div class="ver-divider"></div>
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[25...31]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-001bcffc' class="button" onclick="ShowHide('content-001bcffc','content-btn-001bcffc')">Show</button>
-				</div>			
-				<div class="scope-content" id="content-001bcffc">
-					
-					[00025|&amp;gt;][BEGIN]<br />
-					
-					[00026| ][    // this is a comment inside scope]<br />
-					
-					[00027| ][    COMMAND=888]<br />
-					
-					[00028| ][    COMMAND=AAA]<br />
-					
-					[00029| ][    // this is a comment inside scope]<br />
-					
-					[00030| ][    PARAMETER(123)]<br />
-					
-					[00031|&amp;lt;][END]<br />
-					
-				</div>
-
+					<button id='content-btn-b9f30cfb' class="button"
+						onclick="ShowHide('content-b9f30cfb','content-btn-b9f30cfb')">Show</button>
+				</div>				
+				<div class="scope-code" id="content-b9f30cfb">BEGIN</br>    // this is a comment inside scope</br>    COMMAND=888</br>    COMMAND=AAA</br>    // this is a comment inside scope</br>    PARAMETER(123)</br>END</br></div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -699,41 +638,15 @@
 			
 			<div class="scope">
 				<div class="scope-details">
-					<div class="badge-scope">f21d7694</div>
-					<div class="ver-divider"></div>
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[34...44]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-f21d7694' class="button" onclick="ShowHide('content-f21d7694','content-btn-f21d7694')">Show</button>
-				</div>			
-				<div class="scope-content" id="content-f21d7694">
-					
-					[00034|&amp;gt;][BEGIN]<br />
-					
-					[00035| ][    // this is a comment inside scope]<br />
-					
-					[00036| ][    COMMAND=111]<br />
-					
-					[00037| ][    COMMAND=222]<br />
-					
-					[00038| ][    COMMAND=333]<br />
-					
-					[00039| ][    COMMAND=444]<br />
-					
-					[00040| ][    // this is a comment inside scope]<br />
-					
-					[00041| ][    COMMAND=555]<br />
-					
-					[00042| ][    PARAMETER(990)]<br />
-					
-					[00043| ][    COMMAND=666]<br />
-					
-					[00044|&amp;lt;][END]<br />
-					
-				</div>
-
+					<button id='content-btn-47cb464c' class="button"
+						onclick="ShowHide('content-47cb464c','content-btn-47cb464c')">Show</button>
+				</div>				
+				<div class="scope-code" id="content-47cb464c">BEGIN</br>    // this is a comment inside scope</br>    COMMAND=111</br>    COMMAND=222</br>    COMMAND=333</br>    COMMAND=444</br>    // this is a comment inside scope</br>    COMMAND=555</br>    PARAMETER(990)</br>    COMMAND=666</br>END</br></div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -835,17 +748,17 @@
 		
 
 		function ShowHide(name, button) {
- 			var x = document.getElementById(name);
+			var x = document.getElementById(name);
 			var text = document.getElementById(button).firstChild;
 			console.log(x.style.display);
-  			if (x.style.display !== "block") {
-    			x.style.display = "block";
-  			} else {
-    			x.style.display = "none";
-  			}
+			if (x.style.display !== "block") {
+				x.style.display = "block";
+			} else {
+				x.style.display = "none";
+			}
 			console.log(x.style.display);
 			var text = document.getElementById(button).firstChild;
-   			text.data = text.data == "Show" ? "Hide" : "Show";
+			text.data = text.data == "Show" ? "Hide" : "Show";
 		}
 
 	</script>
