@@ -90,16 +90,35 @@
 		padding: 10px;
 	}
 
+	pre {
+		counter-reset: line 0;
+  		display: grid;
+	}
+
+	code {
+		counter-increment: line;
+		color: #0f0f0f;
+		font-family: "Courier New" !important;
+		text-align: left;
+	}
+
+	code::before {
+		content: counter(line);
+		display: inline-block;
+		width: 1.5em; /* Fixed width */
+		padding-left: 10px;
+		padding-right: 5px;
+		border-right: 1px solid #a1a1a1;
+		margin-right: 10px;
+		color: #9f9f9f;
+		font-family: "Courier New" !important;
+		text-align: right;
+	}
+
 	.scope-code {
 		display: none;
 		background-color: #f0f0f0;
 		border: 1px dotted #AAAAAA;
-		color: rgb(94, 94, 94);
-		font-family: "Courier New" !important;
-		white-space: pre;
-		padding: 10px;
-		text-align: left;
-		word-wrap: break-word;
 	}
 
 	.scope-details {
@@ -390,7 +409,12 @@
 					<button id='content-btn-{{.Id}}' class="button"
 						onclick="ShowHide('content-{{.Id}}','content-btn-{{.Id}}')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-{{.Id}}">{{range $element := .Content}}{{$element}}</br>{{end}}</div>
+				<div class="scope-code" id="content-{{.Id}}">
+					<pre style="counter-increment: line {{.StartedHtmlLine}};">
+						{{range $element := .Content}}<code>{{$element}}</code>
+						{{end}}
+					</pre>
+				</div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>

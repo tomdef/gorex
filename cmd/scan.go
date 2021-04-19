@@ -316,12 +316,13 @@ func beginScope(logger *zerolog.Logger, fileName string, line string, index int,
 	logger.Trace().Msgf("\t[%v] Begin scope [%v] in line [%v]", pathHash, scopeName, index)
 	*scopeIsOpen = true
 	*scopeSummary = common.ScopeSummary{
-		Name:     scopeName,
-		FileName: fileName,
-		Started:  index,
-		Finished: 0,
-		Matches:  nil,
-		Content:  nil,
+		Name:            scopeName,
+		FileName:        fileName,
+		Started:         index,
+		StartedHtmlLine: index - 1,
+		Finished:        0,
+		Matches:         nil,
+		Content:         nil,
 	}
 	scopeSummary.ResolveId()
 	scopeSummary.Content = append(scopeSummary.Content, line)

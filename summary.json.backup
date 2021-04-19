@@ -29,14 +29,14 @@
    ]
   }
  ],
- "CreationTime": "2021-04-19T12:24:35.9040475+02:00",
- "DurationTime": 64172500,
+ "CreationTime": "2021-04-19T23:29:28.6733327+02:00",
+ "DurationTime": 32830400,
  "Summary": [
   {
    "fileName": "D:\\Projects\\Src\\GoRex\\example\\F1.txt",
    "scopes": [
     {
-     "id": "7a61f52c",
+     "id": "7a2378bd",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F1.txt",
      "started": 2,
@@ -80,7 +80,7 @@
    "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
    "scopes": [
     {
-     "id": "93e0ca4e",
+     "id": "c58b46f0",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
      "started": 4,
@@ -126,7 +126,7 @@
      ]
     },
     {
-     "id": "494759d3",
+     "id": "eba9b718",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
      "started": 12,
@@ -185,7 +185,7 @@
      ]
     },
     {
-     "id": "0e796b4f",
+     "id": "e2800556",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
      "started": 33,

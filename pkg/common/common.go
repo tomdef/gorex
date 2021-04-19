@@ -155,14 +155,15 @@ type MatchLine struct {
 
 // ScopeSummary provides...
 type ScopeSummary struct {
-	Id            string      `json:"id" xml:"id,attr"`
-	Name          string      `json:"name" xml:"name,attr"`
-	FileName      string      `json:"fileName" xml:"fileName,attr"`
-	Started       int         `json:"started" xml:"started,attr"`
-	Finished      int         `json:"finished" xml:"finished,attr"`
-	Content       []string    `json:"content" xml:"content"`
-	ContentAsHTML []string    `json:"-"`
-	Matches       []MatchLine `json:"matches" xml:"matches"`
+	Id              string      `json:"id" xml:"id,attr"`
+	Name            string      `json:"name" xml:"name,attr"`
+	FileName        string      `json:"fileName" xml:"fileName,attr"`
+	Started         int         `json:"started" xml:"started,attr"`
+	Finished        int         `json:"finished" xml:"finished,attr"`
+	Content         []string    `json:"content" xml:"content"`
+	ContentAsHTML   []string    `json:"-"`
+	StartedHtmlLine int         `json:"-"`
+	Matches         []MatchLine `json:"matches" xml:"matches"`
 }
 
 // FileScopeSummary provides...

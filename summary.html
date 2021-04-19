@@ -90,16 +90,38 @@
 		padding: 10px;
 	}
 
+	pre {
+		counter-reset: line 0;
+  		display: grid;
+	}
+
+	code {
+		counter-increment: line;
+		color: #0f0f0f;
+		font-family: "Courier New" !important;
+		 
+		text-align: left;
+		 
+	}
+
+	code::before {
+		content: counter(line);
+		display: inline-block;
+		width: 1.5em;  
+		padding-left: 10px;
+		padding-right: 5px;
+		border-right: 1px solid #a1a1a1;
+		margin-right: 10px;
+		color: #9f9f9f;
+		font-family: "Courier New" !important;
+		text-align: right;
+	}
+
 	.scope-code {
 		display: none;
 		background-color: #f0f0f0;
 		border: 1px dotted #AAAAAA;
-		color: rgb(94, 94, 94);
-		font-family: "Courier New" !important;
-		white-space: pre;
-		padding: 10px;
-		text-align: left;
-		word-wrap: break-word;
+		 
 	}
 
 	.scope-details {
@@ -292,11 +314,11 @@
 				</tr>
 				<tr>
 					<td>Creation time</td>
-					<td><strong>2021-04-19 12:25:30.702127 &#43;0200 CEST m=&#43;0.026917101</strong></td>
+					<td><strong>2021-04-19 23:29:42.6533582 &#43;0200 CEST m=&#43;0.030012601</strong></td>
 				</tr>
 				<tr>
 					<td>Duration time</td>
-					<td><strong>36.6762ms</strong></td>
+					<td><strong>34.4784ms</strong></td>
 				</tr>
 				<tr>
 					<td>Number of scanned file(s)</td>
@@ -409,10 +431,19 @@
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[2...6]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-76914143' class="button"
-						onclick="ShowHide('content-76914143','content-btn-76914143')">Show</button>
+					<button id='content-btn-1cf7c4c7' class="button"
+						onclick="ShowHide('content-1cf7c4c7','content-btn-1cf7c4c7')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-76914143">BEGIN</br>    COMMAND=11</br>    COMMAND=22</br>    PARAMETER(123)</br>END</br></div>
+				<div class="scope-code" id="content-1cf7c4c7">
+					<pre style="counter-increment: line 1;">
+						<code>BEGIN</code>
+						<code>    COMMAND=11</code>
+						<code>    COMMAND=22</code>
+						<code>    PARAMETER(123)</code>
+						<code>END</code>
+						
+					</pre>
+				</div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -468,10 +499,20 @@
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[4...9]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-6da97890' class="button"
-						onclick="ShowHide('content-6da97890','content-btn-6da97890')">Show</button>
+					<button id='content-btn-fb8eeb5f' class="button"
+						onclick="ShowHide('content-fb8eeb5f','content-btn-fb8eeb5f')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-6da97890">BEGIN</br>    COMMAND=111</br>    COMMAND=222</br>    PARAMETER(123)</br>    COMMAND=333</br>END</br></div>
+				<div class="scope-code" id="content-fb8eeb5f">
+					<pre style="counter-increment: line 3;">
+						<code>BEGIN</code>
+						<code>    COMMAND=111</code>
+						<code>    COMMAND=222</code>
+						<code>    PARAMETER(123)</code>
+						<code>    COMMAND=333</code>
+						<code>END</code>
+						
+					</pre>
+				</div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -529,10 +570,25 @@
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[12...22]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-5863ee9c' class="button"
-						onclick="ShowHide('content-5863ee9c','content-btn-5863ee9c')">Show</button>
+					<button id='content-btn-b1c181f3' class="button"
+						onclick="ShowHide('content-b1c181f3','content-btn-b1c181f3')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-5863ee9c">BEGIN</br>    // this is a comment inside scope</br>    // this is a comment inside scope</br>    COMMAND=AAA</br>    COMMAND=AAA</br>    COMMAND=1</br>    PARAMETER(123)</br>    PARAMETER(999)</br>    COMMAND=2</br>    COMMAND=3</br>END</br></div>
+				<div class="scope-code" id="content-b1c181f3">
+					<pre style="counter-increment: line 11;">
+						<code>BEGIN</code>
+						<code>    // this is a comment inside scope</code>
+						<code>    // this is a comment inside scope</code>
+						<code>    COMMAND=AAA</code>
+						<code>    COMMAND=AAA</code>
+						<code>    COMMAND=1</code>
+						<code>    PARAMETER(123)</code>
+						<code>    PARAMETER(999)</code>
+						<code>    COMMAND=2</code>
+						<code>    COMMAND=3</code>
+						<code>END</code>
+						
+					</pre>
+				</div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -602,10 +658,25 @@
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[33...43]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-aeb3d46b' class="button"
-						onclick="ShowHide('content-aeb3d46b','content-btn-aeb3d46b')">Show</button>
+					<button id='content-btn-53f22a92' class="button"
+						onclick="ShowHide('content-53f22a92','content-btn-53f22a92')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-aeb3d46b">BEGIN</br>    // this is a comment inside scope</br>    COMMAND=111</br>    COMMAND=222</br>    COMMAND=333</br>    COMMAND=444</br>    // this is a comment inside scope</br>    COMMAND=555</br>    PARAMETER(990)</br>    COMMAND=666</br>END</br></div>
+				<div class="scope-code" id="content-53f22a92">
+					<pre style="counter-increment: line 32;">
+						<code>BEGIN</code>
+						<code>    // this is a comment inside scope</code>
+						<code>    COMMAND=111</code>
+						<code>    COMMAND=222</code>
+						<code>    COMMAND=333</code>
+						<code>    COMMAND=444</code>
+						<code>    // this is a comment inside scope</code>
+						<code>    COMMAND=555</code>
+						<code>    PARAMETER(990)</code>
+						<code>    COMMAND=666</code>
+						<code>END</code>
+						
+					</pre>
+				</div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
