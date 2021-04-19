@@ -95,7 +95,7 @@
 		background-color: #f0f0f0;
 		border: 1px dotted #AAAAAA;
 		color: rgb(94, 94, 94);
-		font-family: monospace !important;
+		font-family: "Courier New" !important;
 		white-space: pre;
 		padding: 10px;
 		text-align: left;
@@ -292,11 +292,11 @@
 				</tr>
 				<tr>
 					<td>Creation time</td>
-					<td><strong>2021-04-18 21:58:35.9536113 &#43;0200 CEST m=&#43;0.026876601</strong></td>
+					<td><strong>2021-04-19 12:24:35.9040475 &#43;0200 CEST m=&#43;0.027336701</strong></td>
 				</tr>
 				<tr>
 					<td>Duration time</td>
-					<td><strong>33.3922ms</strong></td>
+					<td><strong>64.1725ms</strong></td>
 				</tr>
 				<tr>
 					<td>Number of scanned file(s)</td>
@@ -383,9 +383,9 @@
 					<td>File name</td>
 					<td><b>D:\Projects\Src\GoRex\example\F2.txt</b></td>
 					<td>Scope(s)</td>
-					<td><b>4</b></td>
+					<td><b>3</b></td>
 					<td>All matches in file</td>
-					<td><b>4</b></td>
+					<td><b>3</b></td>
 					<td><b><a href="#D%3a%5cProjects%5cSrc%5cGoRex%5cexample%5cF2.txt" class="button">Go to file details</a></b></td>
 				</tr>
 				
@@ -409,10 +409,10 @@
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[2...6]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-ae335024' class="button"
-						onclick="ShowHide('content-ae335024','content-btn-ae335024')">Show</button>
+					<button id='content-btn-7a61f52c' class="button"
+						onclick="ShowHide('content-7a61f52c','content-btn-7a61f52c')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-ae335024">BEGIN</br>    COMMAND=11</br>    COMMAND=22</br>    PARAMETER(123)</br>END</br></div>
+				<div class="scope-code" id="content-7a61f52c">BEGIN</br>    COMMAND=11</br>    COMMAND=22</br>    PARAMETER(123)</br>END</br></div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -468,10 +468,10 @@
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[4...9]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-da22ffc4' class="button"
-						onclick="ShowHide('content-da22ffc4','content-btn-da22ffc4')">Show</button>
+					<button id='content-btn-93e0ca4e' class="button"
+						onclick="ShowHide('content-93e0ca4e','content-btn-93e0ca4e')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-da22ffc4">BEGIN</br>    COMMAND=111</br>    COMMAND=222</br>    PARAMETER(123)</br>    COMMAND=333</br>END</br></div>
+				<div class="scope-code" id="content-93e0ca4e">BEGIN</br>    COMMAND=111</br>    COMMAND=222</br>    PARAMETER(123)</br>    COMMAND=333</br>END</br></div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -529,10 +529,10 @@
 					<div class="scope-title">Scope range</div>
 					<div class="scope-value">[12...22]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-aad3b609' class="button"
-						onclick="ShowHide('content-aad3b609','content-btn-aad3b609')">Show</button>
+					<button id='content-btn-494759d3' class="button"
+						onclick="ShowHide('content-494759d3','content-btn-494759d3')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-aad3b609">BEGIN</br>    // this is a comment inside scope</br>    // this is a comment inside scope</br>    COMMAND=AAA</br>    COMMAND=AAA</br>    COMMAND=1</br>    PARAMETER(123)</br>    PARAMETER(999)</br>    COMMAND=2</br>    COMMAND=3</br>END</br></div>
+				<div class="scope-code" id="content-494759d3">BEGIN</br>    // this is a comment inside scope</br>    // this is a comment inside scope</br>    COMMAND=AAA</br>    COMMAND=AAA</br>    COMMAND=1</br>    PARAMETER(123)</br>    PARAMETER(999)</br>    COMMAND=2</br>    COMMAND=3</br>END</br></div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
@@ -600,59 +600,18 @@
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
 					<div class="scope-title">Scope range</div>
-					<div class="scope-value">[25...31]</div>
+					<div class="scope-value">[33...43]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-b9f30cfb' class="button"
-						onclick="ShowHide('content-b9f30cfb','content-btn-b9f30cfb')">Show</button>
+					<button id='content-btn-0e796b4f' class="button"
+						onclick="ShowHide('content-0e796b4f','content-btn-0e796b4f')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-b9f30cfb">BEGIN</br>    // this is a comment inside scope</br>    COMMAND=888</br>    COMMAND=AAA</br>    // this is a comment inside scope</br>    PARAMETER(123)</br>END</br></div>
+				<div class="scope-code" id="content-0e796b4f">BEGIN</br>    // this is a comment inside scope</br>    COMMAND=111</br>    COMMAND=222</br>    COMMAND=333</br>    COMMAND=444</br>    // this is a comment inside scope</br>    COMMAND=555</br>    PARAMETER(990)</br>    COMMAND=666</br>END</br></div>
 				<table class="tbl">
 					<caption>&#11208; Match(es):</caption>
 					<tbody>
 						
 						<tr>
-							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">27</td>
-							<td style="font-family: 'Courier New', Courier, monospace;white-space: pre;">    COMMAND=888</td>
-							<td>
-								
-								<span class="badge-match">match-command-with-integer</span>
-								
-							</td>
-						</tr>
-						
-						<tr>
-							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">30</td>
-							<td style="font-family: 'Courier New', Courier, monospace;white-space: pre;">    PARAMETER(123)</td>
-							<td>
-								
-								<span class="badge-match">match-parameter</span>
-								
-								<span class="badge-match">match-close-bracket</span>
-								
-							</td>
-						</tr>
-						
-					</tbody>
-				</table>
-			</div>
-			
-			<div class="scope">
-				<div class="scope-details">
-					<div class="badge-scope">example-1</div>
-					<div class="ver-divider"></div>
-					<div class="scope-title">Scope range</div>
-					<div class="scope-value">[34...44]</div>
-					<div class="ver-divider"></div>
-					<button id='content-btn-47cb464c' class="button"
-						onclick="ShowHide('content-47cb464c','content-btn-47cb464c')">Show</button>
-				</div>				
-				<div class="scope-code" id="content-47cb464c">BEGIN</br>    // this is a comment inside scope</br>    COMMAND=111</br>    COMMAND=222</br>    COMMAND=333</br>    COMMAND=444</br>    // this is a comment inside scope</br>    COMMAND=555</br>    PARAMETER(990)</br>    COMMAND=666</br>END</br></div>
-				<table class="tbl">
-					<caption>&#11208; Match(es):</caption>
-					<tbody>
-						
-						<tr>
-							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">36</td>
+							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">35</td>
 							<td style="font-family: 'Courier New', Courier, monospace;white-space: pre;">    COMMAND=111</td>
 							<td>
 								
@@ -662,7 +621,7 @@
 						</tr>
 						
 						<tr>
-							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">37</td>
+							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">36</td>
 							<td style="font-family: 'Courier New', Courier, monospace;white-space: pre;">    COMMAND=222</td>
 							<td>
 								
@@ -672,7 +631,7 @@
 						</tr>
 						
 						<tr>
-							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">38</td>
+							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">37</td>
 							<td style="font-family: 'Courier New', Courier, monospace;white-space: pre;">    COMMAND=333</td>
 							<td>
 								
@@ -682,7 +641,7 @@
 						</tr>
 						
 						<tr>
-							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">39</td>
+							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">38</td>
 							<td style="font-family: 'Courier New', Courier, monospace;white-space: pre;">    COMMAND=444</td>
 							<td>
 								
@@ -692,7 +651,7 @@
 						</tr>
 						
 						<tr>
-							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">41</td>
+							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">40</td>
 							<td style="font-family: 'Courier New', Courier, monospace;white-space: pre;">    COMMAND=555</td>
 							<td>
 								
@@ -702,7 +661,7 @@
 						</tr>
 						
 						<tr>
-							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">42</td>
+							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">41</td>
 							<td style="font-family: 'Courier New', Courier, monospace;white-space: pre;">    PARAMETER(990)</td>
 							<td>
 								
@@ -714,7 +673,7 @@
 						</tr>
 						
 						<tr>
-							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">43</td>
+							<td style="font-family: 'Courier New', Courier, monospace;width:100px;">42</td>
 							<td style="font-family: 'Courier New', Courier, monospace;white-space: pre;">    COMMAND=666</td>
 							<td>
 								

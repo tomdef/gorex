@@ -73,14 +73,14 @@ func (cfg MatchConfig) IsMatch(matchLines []MatchLine) []int {
 	if cfg.IsMatchOccurrence(allMatchedLines, allLinesCount) {
 		return result
 	} else {
-		return []int{}
+		return nil
 	}
 }
 
 // IsMatchOccurrence check if string collection is enought
 func (cfg MatchConfig) IsMatchOccurrence(lines []string, allLinesCount int) bool {
 
-	if cfg.Occurrence == "*" && len(lines) == allLinesCount {
+	if cfg.Occurrence == "*" && len(lines) > 0 {
 		return true
 	}
 

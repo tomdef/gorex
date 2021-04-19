@@ -392,10 +392,14 @@ func findMatchesInScope(logger zerolog.Logger, scopeConfig *common.ScopeConfig, 
 
 		for _, m := range scopeConfig.Matches {
 			matchesIndex := m.IsMatch(matchLines)
-			if len(matchesIndex) > 0 {
-				for _, mi := range matchesIndex {
-					if matchLines[i].Index == mi {
-						matchLines[i].MatchNames = append(matchLines[i].MatchNames, m.Name)
+			if matchesIndex == nil {
+				return []common.MatchLine{}
+			} else {
+				if len(matchesIndex) > 0 {
+					for _, mi := range matchesIndex {
+						if matchLines[i].Index == mi {
+							matchLines[i].MatchNames = append(matchLines[i].MatchNames, m.Name)
+						}
 					}
 				}
 			}

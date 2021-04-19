@@ -24,10 +24,9 @@ END
 // *** should not match
 BEGIN
     // this is a comment inside scope
-    COMMAND=888
     COMMAND=AAA
     // this is a comment inside scope
-    PARAMETER(123)
+    PARAMETER(990)
 END
 //
 // *** should not match

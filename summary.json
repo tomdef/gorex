@@ -29,14 +29,14 @@
    ]
   }
  ],
- "CreationTime": "2021-04-18T21:58:58.6760846+02:00",
- "DurationTime": 36879300,
+ "CreationTime": "2021-04-19T12:25:30.702127+02:00",
+ "DurationTime": 36676200,
  "Summary": [
   {
    "fileName": "D:\\Projects\\Src\\GoRex\\example\\F1.txt",
    "scopes": [
     {
-     "id": "d8069f1c",
+     "id": "76914143",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F1.txt",
      "started": 2,
@@ -80,7 +80,7 @@
    "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
    "scopes": [
     {
-     "id": "d7a7bb82",
+     "id": "6da97890",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
      "started": 4,
@@ -126,7 +126,7 @@
      ]
     },
     {
-     "id": "ceb3c2dc",
+     "id": "5863ee9c",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
      "started": 12,
@@ -185,44 +185,11 @@
      ]
     },
     {
-     "id": "2feaa170",
+     "id": "aeb3d46b",
      "name": "example-1",
      "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
-     "started": 25,
-     "finished": 31,
-     "content": [
-      "BEGIN",
-      "    // this is a comment inside scope",
-      "    COMMAND=888",
-      "    COMMAND=AAA",
-      "    // this is a comment inside scope",
-      "    PARAMETER(123)",
-      "END"
-     ],
-     "matches": [
-      {
-       "line": "    COMMAND=888",
-       "index": 27,
-       "matchNames": [
-        "match-command-with-integer"
-       ]
-      },
-      {
-       "line": "    PARAMETER(123)",
-       "index": 30,
-       "matchNames": [
-        "match-parameter",
-        "match-close-bracket"
-       ]
-      }
-     ]
-    },
-    {
-     "id": "024b3ca2",
-     "name": "example-1",
-     "fileName": "D:\\Projects\\Src\\GoRex\\example\\F2.txt",
-     "started": 34,
-     "finished": 44,
+     "started": 33,
+     "finished": 43,
      "content": [
       "BEGIN",
       "    // this is a comment inside scope",
@@ -239,42 +206,42 @@
      "matches": [
       {
        "line": "    COMMAND=111",
-       "index": 36,
+       "index": 35,
        "matchNames": [
         "match-command-with-integer"
        ]
       },
       {
        "line": "    COMMAND=222",
-       "index": 37,
+       "index": 36,
        "matchNames": [
         "match-command-with-integer"
        ]
       },
       {
        "line": "    COMMAND=333",
-       "index": 38,
+       "index": 37,
        "matchNames": [
         "match-command-with-integer"
        ]
       },
       {
        "line": "    COMMAND=444",
-       "index": 39,
+       "index": 38,
        "matchNames": [
         "match-command-with-integer"
        ]
       },
       {
        "line": "    COMMAND=555",
-       "index": 41,
+       "index": 40,
        "matchNames": [
         "match-command-with-integer"
        ]
       },
       {
        "line": "    PARAMETER(990)",
-       "index": 42,
+       "index": 41,
        "matchNames": [
         "match-parameter",
         "match-close-bracket"
@@ -282,7 +249,7 @@
       },
       {
        "line": "    COMMAND=666",
-       "index": 43,
+       "index": 42,
        "matchNames": [
         "match-command-with-integer"
        ]
@@ -290,7 +257,7 @@
      ]
     }
    ],
-   "AllMatches": 4
+   "AllMatches": 3
   }
  ],
  "ScanFiles": 2
