@@ -198,18 +198,18 @@ func Test_MatchConfig_IsMatch(t *testing.T) {
 		Occurrence:     "3",
 	}
 
-	if b := matchConfigAll.IsMatch(&lines); b == false {
+	if b := matchConfigAll.IsMatch(lines); len(b) == 0 {
 		t.Errorf("Lines not match to [%v]", matchConfigAll.Name)
 	}
 
-	if b := matchConfigAny.IsMatch(&lines); b == false {
+	if b := matchConfigAny.IsMatch(lines); len(b) == 0 {
 		t.Errorf("Lines not match to [%v]", matchConfigAny.Name)
 	}
 
-	if b := matchConfigNone.IsMatch(&lines); b == false {
+	if b := matchConfigNone.IsMatch(lines); len(b) != 0 {
 		t.Errorf("Lines should not match to [%v]", matchConfigNone.Name)
 	}
-	if b := matchConfig3.IsMatch(&lines); b == false {
+	if b := matchConfig3.IsMatch(lines); len(b) != 3 {
 		t.Errorf("Lines not match to [%v]", matchConfig3.Name)
 	}
 }

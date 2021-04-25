@@ -99,9 +99,7 @@
 		counter-increment: line;
 		color: #0f0f0f;
 		font-family: "Courier New" !important;
-		 
 		text-align: left;
-		 
 	}
 
 	code::before {
@@ -121,7 +119,6 @@
 		display: none;
 		background-color: #f0f0f0;
 		border: 1px dotted #AAAAAA;
-		 
 	}
 
 	.scope-details {
@@ -290,6 +287,19 @@
 		display: inline-block;
 	}
 
+	.button-goto-top {
+		color: white;
+		border-radius: 2px;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		background: #4682B4;
+		border: 1px solid #A7C7E7;
+		padding: 2px 4px 2px 4px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		margin-left: 10px;
+	}
+
 	.hide {
 		display: none;
 	}
@@ -314,11 +324,11 @@
 				</tr>
 				<tr>
 					<td>Creation time</td>
-					<td><strong>2021-04-19 23:29:42.6533582 &#43;0200 CEST m=&#43;0.030012601</strong></td>
+					<td><strong>2021-04-25 14:23:43.057884 &#43;0200 CEST m=&#43;0.029796301</strong></td>
 				</tr>
 				<tr>
 					<td>Duration time</td>
-					<td><strong>34.4784ms</strong></td>
+					<td><strong>34.0012ms</strong></td>
 				</tr>
 				<tr>
 					<td>Number of scanned file(s)</td>
@@ -421,20 +431,21 @@
 		
 		<div class="summary">
 			<p class="summary-title" id="D:\Projects\Src\GoRex\example\F1.txt">File name [<b><a class="summary-title"
-						href="file:///D:%5cProjects%5cSrc%5cGoRex%5cexample%5cF1.txt">D:\Projects\Src\GoRex\example\F1.txt</a></b>][<a href="#title" class="summary-title">Go to
-					top</a>]</p>
+						href="file:///D:%5cProjects%5cSrc%5cGoRex%5cexample%5cF1.txt">D:\Projects\Src\GoRex\example\F1.txt</a></b>
+						<a href="#title" class="button-goto-top">Go to top</a>
+					</p>
 			
 			<div class="scope">
 				<div class="scope-details">
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
-					<div class="scope-title">Scope range</div>
+					<div class="scope-title">Scope range in file</div>
 					<div class="scope-value">[2...6]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-1cf7c4c7' class="button"
-						onclick="ShowHide('content-1cf7c4c7','content-btn-1cf7c4c7')">Show</button>
+					<button id='content-btn-53afa757' class="button"
+						onclick="ShowHide('content-53afa757','content-btn-53afa757')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-1cf7c4c7">
+				<div class="scope-code" id="content-53afa757">
 					<pre style="counter-increment: line 1;">
 						<code>BEGIN</code>
 						<code>    COMMAND=11</code>
@@ -489,20 +500,21 @@
 		
 		<div class="summary">
 			<p class="summary-title" id="D:\Projects\Src\GoRex\example\F2.txt">File name [<b><a class="summary-title"
-						href="file:///D:%5cProjects%5cSrc%5cGoRex%5cexample%5cF2.txt">D:\Projects\Src\GoRex\example\F2.txt</a></b>][<a href="#title" class="summary-title">Go to
-					top</a>]</p>
+						href="file:///D:%5cProjects%5cSrc%5cGoRex%5cexample%5cF2.txt">D:\Projects\Src\GoRex\example\F2.txt</a></b>
+						<a href="#title" class="button-goto-top">Go to top</a>
+					</p>
 			
 			<div class="scope">
 				<div class="scope-details">
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
-					<div class="scope-title">Scope range</div>
+					<div class="scope-title">Scope range in file</div>
 					<div class="scope-value">[4...9]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-fb8eeb5f' class="button"
-						onclick="ShowHide('content-fb8eeb5f','content-btn-fb8eeb5f')">Show</button>
+					<button id='content-btn-128c8589' class="button"
+						onclick="ShowHide('content-128c8589','content-btn-128c8589')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-fb8eeb5f">
+				<div class="scope-code" id="content-128c8589">
 					<pre style="counter-increment: line 3;">
 						<code>BEGIN</code>
 						<code>    COMMAND=111</code>
@@ -567,13 +579,13 @@
 				<div class="scope-details">
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
-					<div class="scope-title">Scope range</div>
+					<div class="scope-title">Scope range in file</div>
 					<div class="scope-value">[12...22]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-b1c181f3' class="button"
-						onclick="ShowHide('content-b1c181f3','content-btn-b1c181f3')">Show</button>
+					<button id='content-btn-80dce100' class="button"
+						onclick="ShowHide('content-80dce100','content-btn-80dce100')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-b1c181f3">
+				<div class="scope-code" id="content-80dce100">
 					<pre style="counter-increment: line 11;">
 						<code>BEGIN</code>
 						<code>    // this is a comment inside scope</code>
@@ -655,13 +667,13 @@
 				<div class="scope-details">
 					<div class="badge-scope">example-1</div>
 					<div class="ver-divider"></div>
-					<div class="scope-title">Scope range</div>
+					<div class="scope-title">Scope range in file</div>
 					<div class="scope-value">[33...43]</div>
 					<div class="ver-divider"></div>
-					<button id='content-btn-53f22a92' class="button"
-						onclick="ShowHide('content-53f22a92','content-btn-53f22a92')">Show</button>
+					<button id='content-btn-af6ee902' class="button"
+						onclick="ShowHide('content-af6ee902','content-btn-af6ee902')">Show</button>
 				</div>				
-				<div class="scope-code" id="content-53f22a92">
+				<div class="scope-code" id="content-af6ee902">
 					<pre style="counter-increment: line 32;">
 						<code>BEGIN</code>
 						<code>    // this is a comment inside scope</code>

@@ -287,6 +287,19 @@
 		display: inline-block;
 	}
 
+	.button-goto-top {
+		color: white;
+		border-radius: 2px;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		background: #4682B4;
+		border: 1px solid #A7C7E7;
+		padding: 2px 4px 2px 4px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		margin-left: 10px;
+	}
+
 	.hide {
 		display: none;
 	}
@@ -396,14 +409,15 @@
 		<!-- single result -->
 		<div class="summary">
 			<p class="summary-title" id="{{.FileName}}">File name [<b><a class="summary-title"
-						href="file:///{{.FileName}}">{{.FileName}}</a></b>][<a href="#title" class="summary-title">Go to
-					top</a>]</p>
+						href="file:///{{.FileName}}">{{.FileName}}</a></b>
+						<a href="#title" class="button-goto-top">Go to top</a>
+					</p>
 			{{range .Scopes}}
 			<div class="scope">
 				<div class="scope-details">
 					<div class="badge-scope">{{.Name}}</div>
 					<div class="ver-divider"></div>
-					<div class="scope-title">Scope range</div>
+					<div class="scope-title">Scope range in file</div>
 					<div class="scope-value">[{{.Started}}...{{.Finished}}]</div>
 					<div class="ver-divider"></div>
 					<button id='content-btn-{{.Id}}' class="button"
